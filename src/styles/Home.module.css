@@ -10,7 +10,6 @@
 .transition-logo {
     animation: showTransition 1.5s ease;
     opacity: 0;
-    display: block;
     position: absolute;
     transform: translateX(1000%);
 }
@@ -20,11 +19,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .home-page-content {
     animation: show 2s ease;
     overflow-y: hidden;
+    width: 50%;
 }
 
 .home-page-content-p {
@@ -32,24 +33,55 @@
     width: 60%;
 }
 
+.home-page-login-form {
+    animation: show 2s ease-in-out;
+    overflow-y: hidden;
+    box-shadow: var(--box-shadow);
+    border-radius: 5px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 28vw;
+    height: 300px;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+}
+
 
 @keyframes showTransition {
     0% {
         transform: translateX(0%);
-        opacity: 1;
+        opacity: 0;
     }
 
     15% {
         transform: translateX(0%);
-        opacity: 1;
+        opacity: 0;
     }
 
     30% {
         transform: translateX(0%);
-        opacity: 1;
+        opacity: 0;
     }
 
     45% {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+
+    60% {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+
+    75% {
         transform: translateX(0%);
         opacity: 1;
     }

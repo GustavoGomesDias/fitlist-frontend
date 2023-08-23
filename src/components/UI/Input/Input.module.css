@@ -1,0 +1,22 @@
+.input-form {
+    width: 80%;
+    box-shadow: var(--box-shadow);
+    height: var(--btn-height);
+    border-radius: var(--btn-radius);
+    padding: 1rem;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    /* background-color: transparent; */
+    /* color: var(--text-color); */
+
+    transition: all .5s;
+}
+
+/* .input-form::placeholder {
+    color: var(--text-color);
+} */
+
+.input-form:focus {
+    transform: scale(1.1);
+}

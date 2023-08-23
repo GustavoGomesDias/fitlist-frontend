@@ -9,12 +9,15 @@
 
 :root {
   --bg-gradient: linear-gradient(to right bottom, #4b4453, #4f4b5d, #525367, #545c71, #55647b, #55647b, #55647b, #55647b, #545c71, #525367, #4f4b5d, #4b4453);
-  --box-shadow: 10px 10px 14px 1px rgba(00,00,00,0.2);
+  --box-shadow: 0 0 5px 5px rgba(00,00,00,0.1);
   --btn-border-radius: 50px;
   --btn-height: 50px;
   --success-color: #00C9A8;
   --error-color: #ef686c;
+  --normal-color: #56889A;
   --text-color: #fff;
+  --btn-radius: 50px;
+  --btn-gradient: linear-gradient(to right top, #53596e, #545d73, #546178, #55667c, #556a81, #556e85, #557289, #55768c, #557a90, #557f93, #568397, #56889a);
 }
 
 html, body, div, span, applet, object, iframe,
@@ -83,4 +86,8 @@ p {
   width: 100%;
   overflow-x: none;
   overflow-y: hidden;
+}
+
+a {
+  text-decoration: none;
 }

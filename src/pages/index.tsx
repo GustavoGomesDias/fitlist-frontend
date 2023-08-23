@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import { Input, Button, LinkButton } from '@/components/UI/index'
 
 export default function Home() {
     return (
@@ -20,8 +20,26 @@ export default function Home() {
 
                 <section className={`${styles['home-page-content']}`}>
                     <h1 className={`${styles['logo']}`}>FitList</h1>
+                    <p className={`${styles['home-page-content-p']}`}>FitList te ajuda a tornar o seu plano de exercícios mais dinâmicos, mais playlist!</p>
+                </section>
 
-                    <p className={`${styles['home-page-content-p']}`}>FitList te ajuda a tornar o plano de exercícios mais dinâmicos, mais playlist!</p>
+                <section className={`${styles['home-page-login-form']}`}>
+                    <form action="#" className={`${styles['login-form']}`}>
+                        <Input id='email' name='email' placeholder='E-mail' type='text' onChangeHandle={(e) => {}}/>
+                        <Input id='password' name='password' placeholder='Senha' type='password' onChangeHandle={(e) => {}}/>
+                        <Button
+                            classType='success'
+                            id='login-form-submit'
+                            text='Entrar'
+                            type='submit'
+                        />
+                        <LinkButton
+                            classType='normal'
+                            id='register-btn'
+                            href='/'
+                            text='Cadastre-se'
+                        />
+                    </form>
                 </section>
             </div>
         </>

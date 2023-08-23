@@ -1,0 +1,26 @@
+.fitlist-btn {
+    color: var(--text-color);
+    width: 80%;
+    font-size: 1rem;
+    height: var(--btn-height);
+    border-radius: var(--btn-radius);
+    border: none;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .5s
+}
+
+.fitlist-btn:hover {
+    transform: scale(1.1);
+}
+
+.success {
+    background-color: var(--success-color);
+}
+
+.normal {
+    background-color: var(--normal-color);
+}
