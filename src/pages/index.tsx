@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { Input, Button, LinkButton } from '@/components/UI/index'
+import { Logo } from '@/components/Logo/Logo'
 
 export default function Home() {
     return (
@@ -15,11 +16,11 @@ export default function Home() {
 
             <div className={`${styles['home-content']}`}>
                 <section className={`${styles['transition-logo']}`}>
-                    <h1 className={`${styles['logo']}`}>FitList</h1>
+                    <Logo size='md' hoverEffect={false}/>
                 </section>
 
                 <section className={`${styles['home-page-content']}`}>
-                    <h1 className={`${styles['logo']} ${styles['logo-non-transition']}`}>FitList</h1>
+                    <Logo size='md' hoverEffect />
                     <p className={`${styles['home-page-content-p']}`}>FitList te ajuda a tornar o seu plano de exercícios mais dinâmicos, mais playlist!</p>
                 </section>
 
