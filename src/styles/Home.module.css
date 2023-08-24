@@ -7,6 +7,24 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.logo-non-transition {
+    width: 30%;
+}
+
+.logo-non-transition::before {
+    content: "FitList";
+    background-image: var(--btn-gradient);
+    background-clip: padding-box;
+    overflow: hidden;
+    transition: all .5s;
+    position: absolute;
+    width: 0;
+}
+
+.logo-non-transition:hover:before{
+    width:30%;
+}
+
 .transition-logo {
     animation: showTransition 1.5s ease;
     opacity: 0;
@@ -67,6 +85,16 @@
     .logo {
         overflow-y: hidden;
         height: 100px;
+    }
+
+    .logo-non-transition {
+        width: 70%;
+        text-align: center;
+    }
+
+    .logo-non-transition:hover:before{
+        text-align: center;
+        width: 40%;
     }
 
     .home-page-content {

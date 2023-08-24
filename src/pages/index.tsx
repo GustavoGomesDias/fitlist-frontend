@@ -19,7 +19,7 @@ export default function Home() {
                 </section>
 
                 <section className={`${styles['home-page-content']}`}>
-                    <h1 className={`${styles['logo']}`}>FitList</h1>
+                    <h1 className={`${styles['logo']} ${styles['logo-non-transition']}`}>FitList</h1>
                     <p className={`${styles['home-page-content-p']}`}>FitList te ajuda a tornar o seu plano de exercícios mais dinâmicos, mais playlist!</p>
                 </section>
 
