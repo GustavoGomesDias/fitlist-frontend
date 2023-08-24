@@ -1,4 +1,5 @@
 import { HTMLAttributeAnchorTarget} from 'react';
+import Link from 'next/link'
 import styles from '@/components/UI/Button/Button.module.css'
 
 export interface LinkButtontProps {
@@ -11,6 +12,6 @@ export interface LinkButtontProps {
 
 export const LinkButton = ({id, classType, text, href, target}: LinkButtontProps) => {
     return (
-        <a href={href} target={target || ''} className={`${styles['fitlist-btn']} ${styles[classType]}`} id={id}>{text}</a>
+        <Link href={href} target={target || ''} className={`${styles['fitlist-btn']} ${styles[classType]}`} id={id}>{text}</Link>
     );
 };
