@@ -17,7 +17,7 @@ export default function Home() {
                 ]}
             />
 
-            <LateralMenu texts={['Treinos', 'Conta']} />
+            <LateralMenu components={[<span>Treinos</span>, <span>Configuração de Conta</span>]} />
         </>
     );
 }

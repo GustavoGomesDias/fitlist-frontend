@@ -1,7 +1,7 @@
 import styles from 'UI/NaItem/NavItem.module.css'
 
 export interface NavItemProps {
-    navItemComponent: JSX.Element | JSX.Element[]
+    navItemComponent: JSX.Element
     index: number
 }
 

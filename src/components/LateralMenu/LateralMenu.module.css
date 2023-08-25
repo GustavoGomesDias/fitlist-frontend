@@ -6,8 +6,9 @@
     font-family: 'Montserrat', sans-serif;
     color: var(--text-color);
     border-right: 2px solid #4b4453;
-    width: 150px;
+    width: 180px;
     height: 80vh;
+    gap: .5rem;
 }
 
 .border-bottom {

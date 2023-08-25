@@ -1,15 +1,15 @@
 import styles from '@/components/LateralMenu/LateralMenu.module.css'
+import { NavItem } from '../UI';
 
 export interface LateralMenuProps {
-    borderBottom?: boolean
-    texts: string[]
+    components: JSX.Element[]
     onChangeHandle?: string // Vai receber um setState
 }
 
-export const LateralMenu = ({ texts, borderBottom }: LateralMenuProps) => {
+export const LateralMenu = ({ components }: LateralMenuProps) => {
     return (
         <nav className={styles['lateral-menu']}>
-            {texts.map((item) => <span className={`${borderBottom ? styles['border-bottom'] : ''}`}>{item}</span>)}
+            {components.map((item, index) => <NavItem index={index} navItemComponent={item}/>)}
         </nav>
     );
 }
