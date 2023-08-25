@@ -91,3 +91,14 @@ p {
 a {
   text-decoration: none;
 }
+
+*::-webkit-scrollbar {
+  background-color: #56889A;
+  width: 10px;
+  border-radius: 50px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #92b3ad;
+  border-radius: 50px;
+}

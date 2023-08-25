@@ -2,7 +2,7 @@ import { useState, MouseEvent } from 'react';
 import Link from 'next/link';
 import styles from '@/components/TrainingSection/TrainingSection.module.css';
 
-export const FullDisplayTrainingSection = () => {
+export const TrainingSection = () => {
     const [startIndex, setStartIndex] = useState(0);
     const daysOfWeek = [
         'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira',
@@ -36,18 +36,23 @@ export const FullDisplayTrainingSection = () => {
             <div className={`${styles['fd-weekdays']}`}>
                 {/* <h3 className={`${styles['fd-title']}`}>Dias da Semana</h3> */}
                 {daysOfWeek.slice(startIndex, startIndex + maxVisibleSpans).map((day, index) => (
-                    <span key={index} className={`${styles['fd-days']} ${styles[`i-${index}`]}`} onClick={(e) => handleSpanClick(e, day, index)}>{day}</span>
+                    <span key={index} className={`${styles['fd-days']} ${styles[`i-${index}`]}`} onClick={(e) => handleSpanClick(e, day, index)} title={day}>{day}</span>
                 ))}
             </div>
 
             <div className={`${styles['exercism-plan']}`}>
                 <div className={`${styles['title']}`}>
                     <h3 className={`${styles['fd-title']}`}>Treino de peito</h3>
-                    <div className={`${styles['play-btn']}`}>
+                    <div className={`${styles['play-btn']}`} title='Começar treino'>
                         <img src="/images/play.svg" alt="" />
                     </div>
                 </div>
                 <div className={`${styles['exercism']}`}>
+                    <span className={`${styles['fd-exer']}`}>Segunda</span>
+                    <span className={`${styles['fd-exer']}`}>Segunda</span>
+                    <span className={`${styles['fd-exer']}`}>Segunda</span>
+                    <span className={`${styles['fd-exer']}`}>Segunda</span>
+                    <span className={`${styles['fd-exer']}`}>Segunda</span>
                     <span className={`${styles['fd-exer']}`}>Segunda</span>
                     <span className={`${styles['fd-exer']}`}>Segunda</span>
                     <span className={`${styles['fd-exer']}`}>Segunda</span>

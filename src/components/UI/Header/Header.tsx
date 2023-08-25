@@ -11,7 +11,7 @@ export const Header = ({ navItemComponents }: HeaderProps) => {
     return (
         <header className={`${style['fl-header']}`}>
             <Link href='/' className={`${style['fl-header-logo']}`}>
-                <Logo size='xl' logoHeightClass='header-logo' />
+                <Logo size='xl' logoHeightClass='header-logo' title='Voltar para tela inicial' />
             </Link>
             <nav className={`${style['fl-nav']}`}>
                 {navItemComponents.map((navItem, index) => <NavItem navItemComponent={navItem} index={index}/>)}

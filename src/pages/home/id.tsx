@@ -2,7 +2,7 @@ import { Header } from '@/components/UI/Header/Header';
 import { SEO } from '@/components/SEO/SEO';
 import Image from 'next/image';
 import styles from '@/styles/UserHome.module.css';
-import { FullDisplayTrainingSection } from '@/components/TrainingSection/FullDisplayTrainingSection';
+import { TrainingSection } from '@/components/TrainingSection/TrainingSection';
 
 export default function Home() {
     return (
@@ -14,7 +14,7 @@ export default function Home() {
                 ]}
             />
 
-            <FullDisplayTrainingSection />
+            <TrainingSection />
         </>
     );
 }

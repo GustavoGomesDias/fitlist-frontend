@@ -90,3 +90,30 @@
 .play-btn img:hover {
     transform: scale(1.1);
 }
+
+.exercism-plan {
+    height: 70%;
+    padding: 0 1rem;
+}
+
+
+@media (max-width: 767px) {
+    .fd-training-section {
+        flex-direction: column;
+    }
+
+    .exercism-plan {
+        height: 100%;
+        padding: 0 1rem;
+    }
+
+    .fd-weekdays {
+        flex-direction: row;
+        width: 90%;
+        font-size: 1rem;
+    }
+
+    .fd-days:hover {
+        transform: scale(1);
+    }
+}
