@@ -1,7 +1,7 @@
 import styles from '@/components/Logo/Logo.module.css'
 
 export interface LoginProps {
-    size: string
+    size: 'xl' | 'md'
     hoverEffect: boolean
 }
 
