@@ -1,0 +1,22 @@
+.fl-settings {
+    display: flex;
+    padding: 1rem 0;
+}
+
+.fl-setting-section {
+    padding: 0 1.5rem;
+}
+
+.fl-settings-header {
+    font-size: 2rem;
+    font-weight: 700
+}
+
+.fl-setting-weekdyas {
+    padding: 1rem;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}

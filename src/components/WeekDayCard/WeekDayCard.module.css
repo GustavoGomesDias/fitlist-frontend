@@ -1,0 +1,36 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    background-color: var(--normal-color);
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    width: 200px;
+    height: 150px;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+    overflow: hidden;
+    transition: all .5s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+.card span {
+    overflow: hidden;
+}
+
+.weekday {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.training {
+    font-size: 1rem;
+    font-weight: 600;
+}

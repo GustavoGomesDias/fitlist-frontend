@@ -88,6 +88,12 @@ p {
   overflow-y: hidden;
 }
 
+h1, h2, h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-color);
+  overflow: hidden;
+}
+
 a {
   text-decoration: none;
 }
