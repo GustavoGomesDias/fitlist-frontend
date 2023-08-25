@@ -1,0 +1,11 @@
+.ft-nav-item {
+    cursor: pointer;
+
+    transition: all .5s;
+    height: 40px;
+    overflow: hidden;
+}
+
+.ft-nav-item:hover {
+    transform: scale(1.1);
+}

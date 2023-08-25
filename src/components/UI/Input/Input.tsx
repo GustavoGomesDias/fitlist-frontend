@@ -1,5 +1,5 @@
 import { HTMLInputTypeAttribute, ChangeEvent } from 'react';
-import styles from '@/components/UI/Input/Input.module.css'
+import styles from 'UI/Input/Input.module.css'
 
 export interface InputProps {
     id: string
