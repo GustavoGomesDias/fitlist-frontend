@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import { Input, Button, LinkButton } from '@/components/UI/index'
 import { Logo } from '@/components/Logo/Logo'
@@ -11,11 +10,11 @@ export default function Login() {
 
             <div className={`${styles['home-content']}`}>
                 <section className={`${styles['transition-logo']}`}>
-                    <Logo size='md' hoverEffect={false}/>
+                    <Logo size='md' hoverEffect={false} logoHeightClass='normal'/>
                 </section>
 
                 <section className={`${styles['home-page-content']}`}>
-                    <Logo size='md' hoverEffect />
+                    <Logo size='md' hoverEffect logoHeightClass='normal' />
                     <p className={`${styles['home-page-content-p']}`}>FitList te ajuda a tornar o seu plano de exercícios mais dinâmicos, mais playlist!</p>
                 </section>
 

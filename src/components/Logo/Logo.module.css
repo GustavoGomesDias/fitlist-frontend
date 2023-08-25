@@ -37,6 +37,10 @@
 @media (max-width: 767px) {
     .logo {
         overflow-y: hidden;
+        
+    }
+
+    .normal {
         height: 100px;
     }
 

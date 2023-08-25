@@ -1,6 +1,7 @@
 import { NavItem } from '../NaItem/NavItem';
 import { Logo } from '../../Logo/Logo';
 import style from 'UI/Header/Header.module.css';
+import Link from 'next/link';
 
 export interface HeaderProps {
     navItemComponents: JSX.Element[]
@@ -9,9 +10,11 @@ export interface HeaderProps {
 export const Header = ({ navItemComponents }: HeaderProps) => {
     return (
         <header className={`${style['fl-header']}`}>
-            <Logo size='xl' hoverEffect />
+            <Link href='/' className={`${style['fl-header-logo']}`}>
+                <Logo size='xl' logoHeightClass='header-logo' />
+            </Link>
             <nav className={`${style['fl-nav']}`}>
-                {navItemComponents.map((navItem) => <NavItem navItemComponent={navItem}/>)}
+                {navItemComponents.map((navItem, index) => <NavItem navItemComponent={navItem} index={index}/>)}
             </nav>
         </header>
     )

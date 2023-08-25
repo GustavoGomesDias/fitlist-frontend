@@ -1,7 +1,8 @@
 import { Header } from '@/components/UI/Header/Header';
-import { Logo } from '@/components/Logo/Logo';
 import { SEO } from '@/components/SEO/SEO';
 import Image from 'next/image';
+import styles from '@/styles/UserHome.module.css';
+import { FullDisplayTrainingSection } from '@/components/TrainingSection/FullDisplayTrainingSection';
 
 export default function Home() {
     return (
@@ -9,9 +10,11 @@ export default function Home() {
             <SEO />
             <Header
                 navItemComponents={[
-                    <Image src="/images/settings.svg" alt="Botão de configurações" width="30" height="30" />
+                    <Image src="/images/settings.svg" alt="Botão de configurações" width="30" height="30" key="/images/settings.svg" />
                 ]}
             />
+
+            <FullDisplayTrainingSection />
         </>
     );
 }

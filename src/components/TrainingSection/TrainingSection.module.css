@@ -1,0 +1,92 @@
+.fd-training-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 80vh;
+}
+
+.fd-weekdays {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.5rem;
+    width: 400px;
+    height: 200px;
+}
+
+.fd-days {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--text-color);
+    height: 30px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--text-color);
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.i-0 {
+    background-color: var(--normal-color);
+}
+
+.fd-days:hover {
+    transform: scale(1.1);
+}
+
+.rest {
+    background-color: var(--error-color);
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fd-title {
+    overflow: hidden;
+    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+.exercism {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 450px;
+}
+
+.fd-exer {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--text-color);
+    padding: 1rem;
+    overflow: hidden;
+    width: 450px;
+    border: 1px solid var(--text-color);
+    display: flex;
+    justify-content: center;
+}
+
+.play-btn img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.play-btn img:hover {
+    transform: scale(1.1);
+}
