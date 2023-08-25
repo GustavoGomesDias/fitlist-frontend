@@ -1,0 +1,32 @@
+.lateral-menu {
+    margin-top: 25px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+    border-right: 2px solid #4b4453;
+    width: 150px;
+    height: 80vh;
+}
+
+.border-bottom {
+    border-bottom: 2px solid #4b4453;
+}
+
+.lateral-menu span {
+    overflow: hidden;
+    
+    width: 100%;
+
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: var(--normal-color);
+}
+
+.lateral-menu span:hover {
+    background-color: var(--normal-color);
+}

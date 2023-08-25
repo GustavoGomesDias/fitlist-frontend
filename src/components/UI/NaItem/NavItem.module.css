@@ -4,6 +4,9 @@
     transition: all .5s;
     height: 40px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ft-nav-item:hover {
