@@ -25,3 +25,9 @@
 .fl-settings-btn {
     border-bottom: 2px solid #4b4453;
 }
+
+@media (max-width: 767px) {
+    .fl-settings {
+        flex-direction: column;
+    }
+}
