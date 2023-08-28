@@ -4,7 +4,7 @@
     font-family: 'Montserrat', sans-serif;
     color: var(--text-color);
     border-right: 2px solid #4b4453;
-    width: 180px;
+    width: 300px;
     height: 80vh;
     gap: .5rem;
 }
@@ -18,7 +18,7 @@
     
     width: 100%;
 
-    padding: 1rem;
+    padding: .5rem;
     cursor: pointer;
 }
 
@@ -28,4 +28,11 @@
 
 .lateral-menu span:hover {
     background-color: var(--normal-color);
+}
+.title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+    padding: .5rem 0;
 }

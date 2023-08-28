@@ -9,6 +9,7 @@ export interface LateralMenuProps {
 export const LateralMenu = ({ components }: LateralMenuProps) => {
     return (
         <nav className={styles['lateral-menu']}>
+            <h2 className={styles['title']}>Configurações</h2>
             {components.map((item, index) => <NavItem index={index} navItemComponent={item}/>)}
         </nav>
     );

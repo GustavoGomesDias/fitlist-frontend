@@ -8,27 +8,29 @@ import { WeekDayCard } from '@/components/WeekDayCard/WeekDayCard';
 
 export default function Settings() {
     const trainings = [{
-        weekday: 'Segunda',
+        weekday: 'Segunda-feira',
         training: 'Peito',
     }, {
-        weekday: 'Segunda',
+        weekday: 'Segunda-feira',
         training: 'Peito',
     }, {
-        weekday: 'Segunda',
+        weekday: 'Segunda-feira',
         training: 'Peito',
     }, {
-        weekday: 'Segunda',
+        weekday: 'Segunda-feira',
         training: 'Peito',
     }, {
-        weekday: 'Segunda',
+        weekday: 'Segunda-feira',
         training: 'Peito',
     }, {
-        weekday: 'Segunda',
+        weekday: 'Segunda-feira',
         training: 'Peito',
     }, {
-        weekday: 'Segunda',
+        weekday: 'Segunda-feira',
         training: 'Peito',
     }];
+
+    // fl-settings-btn
 
     return (
         <>
@@ -47,7 +49,7 @@ export default function Settings() {
                 <section className={styles['fl-setting-section']}>
                     <h3 className={styles['fl-settings-header']}>Treinos</h3>
 
-                    <div className={styles['fl-setting-weekdyas']}>
+                    <div className={styles['fl-setting-weekdays']}>
                         {trainings.map((item) => <WeekDayCard weekday={item['weekday']} training={item['training']} />)}
                     </div>
                 </section>
