@@ -47,6 +47,8 @@
 .title {
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid var(--text-color);
+    margin-bottom: .5rem;
 }
 
 .fd-title {
@@ -59,6 +61,7 @@
     margin-bottom: 5px;
     text-align: center;
     width: 100%;
+    padding: .5rem;
 }
 
 .exercism {
@@ -75,9 +78,21 @@
     padding: 1rem;
     overflow: hidden;
     width: 450px;
-    border: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--text-color);
     display: flex;
     justify-content: center;
+    cursor: pointer;
+}
+
+.fd-exer-selected {
+    background-color: var(--normal-color);
+    border-radius: 5px;
+}
+
+.play-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .play-btn img {
@@ -91,20 +106,83 @@
     transform: scale(1.1);
 }
 
-.exercism-plan {
-    height: 70%;
-    padding: 0 1rem;
+.exercism-day-list {
+    height: 90%;
+    padding: 0 .5rem;
+
+    box-shadow: var(--box-shadow);
+    border-radius: 5px;
+
+    overflow-y: hidden;
 }
 
+.exercism-plan {
+    height: 90%;
+    padding: .5rem;
+}
+
+.fd-dropdown {
+    overflow: hidden;
+}
+
+.fd-dropdown-training {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.fd-dropdown-training img {
+    cursor: pointer;
+    transform: rotate(90deg);
+    transition: all .5s;
+}
+
+.fd-dropdown-training img:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: var(--box-shadow);
+}
+
+.fd-dropdown-training-title {
+    font-size: 2.3rem;
+    font-weight: 700;
+    width: 100%;
+}
+
+.fd-dropdown-title-list {
+    box-shadow: var(--box-shadow);
+    background-image: var(--bg-gradient);
+    position: absolute;
+    width: 100%;
+    height: 250px;
+    transform: translateX(150%);
+}
+
+.fd-dropdown-ttitle-item {
+    width: 100%;
+    overflow: hidden;
+    padding: 1rem;
+    transition: all .5s;
+    cursor: pointer;
+}
+
+.fd-dropdown-ttitle-item:hover {
+    background-color: var(--normal-color);
+}
 
 @media (max-width: 767px) {
     .fd-training-section {
         flex-direction: column;
     }
 
+    .exercism-day-list {
+        height: 100%;
+    }
+
     .exercism-plan {
         height: 100%;
-        padding: 0 1rem;
+        padding: .5 1rem;
     }
 
     .fd-weekdays {

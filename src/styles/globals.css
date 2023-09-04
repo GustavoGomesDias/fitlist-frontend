@@ -8,13 +8,13 @@
 
 
 :root {
-  --bg-gradient: linear-gradient(to right bottom, #4b4453, #4f4b5d, #525367, #545c71, #55647b, #55647b, #55647b, #55647b, #545c71, #525367, #4f4b5d, #4b4453);
+  --bg-gradient: linear-gradient(to right bottom, #4b4453, #474655, #424857, #3e4957, #3b4b56);
   --box-shadow: 0 0 5px 5px rgba(00,00,00,0.1);
   --btn-border-radius: 50px;
   --btn-height: 50px;
   --success-color: #00C9A8;
   --error-color: #ef686c;
-  --normal-color: #56889A;
+  --normal-color: #55647B;
   --text-color: #fff;
   --btn-radius: 50px;
   --btn-gradient: linear-gradient(to right top, #53596e, #545d73, #546178, #55667c, #556a81, #556e85, #557289, #55768c, #557a90, #557f93, #568397, #56889a);
@@ -88,7 +88,7 @@ p {
   overflow-y: hidden;
 }
 
-h1, h2, h3 {
+h1, h2, h3, li {
   font-family: 'Montserrat', sans-serif;
   color: var(--text-color);
   overflow: hidden;
@@ -99,12 +99,11 @@ a {
 }
 
 *::-webkit-scrollbar {
-  background-color: #56889A;
-  width: 10px;
+  background-color: transparent;
+  width: 15px;
   border-radius: 50px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #92b3ad;
-  border-radius: 50px;
+  background-color: var(--normal-color);
 }
