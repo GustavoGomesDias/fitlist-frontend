@@ -1,35 +1,55 @@
 import { useState, MouseEvent } from 'react';
-import Link from 'next/link';
 import styles from '@/components/TrainingSection/TrainingSection.module.css';
 import Image from 'next/image';
 
+
+export type DropdownProps =  {
+    type: 'trainingPlan' | 'weekDayPlan',
+    show: boolean
+}
+
 export const TrainingSection = () => {
-    const [startIndex, setStartIndex] = useState(0);
-    const daysOfWeek = [
-        'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira',
-        'Quinta-Feira', 'Sexta-Feira', 'Sábado', 'Domingo'
-    ];
 
-    const maxVisibleSpans = 3;
+    const [trainingDropdown, setTrainingDropdown] = useState<DropdownProps>({
+        type: 'trainingPlan',
+        show: false,
+    });
+
+    const [trainingList, setTrainingList] = useState<string[]>([]);
+    const [trainingPlan, setTrainingPlan] = useState<string>('Título do Treino');
+    const [weekDayPlan, setWeekDayPlan] = useState<string>('Treino de peito / Segunda-feira');
 
 
-    const handleSpanClick = (e: MouseEvent<HTMLSpanElement>, day: string, spanIndex: number) => {
-        console.log(daysOfWeek.indexOf(day));
+    const handleClickInChangeTraining = (e: MouseEvent, type: 'trainingPlan' | 'weekDayPlan') => {
+        e.preventDefault();
 
-        if (startIndex === 6) {
-            setStartIndex(0);
-            return;
+        if (type === 'trainingPlan') {
+
+            setTrainingList(['Título do Treino 1', 'Título do Treino 2', 'Título do Treino 3', 'Título do Treino 4', 'Título do Treino 5', 'Título do Treino 6', 'Título do Treino 7', 'Título do Treino 8', 'Título do Treino 9']);
+        } else {
+            setTrainingList(['Treino de peito / Segunda-feira', 'Treino de peito / Segunda-feira', 'Treino de peito / Segunda-feira', 'Treino de peito / Segunda-feira', 'Treino de peito / Segunda-feira']);
         }
 
-        if (spanIndex === 0 && daysOfWeek.indexOf(day) !== 0) {
-            console.log(startIndex)
-            let subtract = 2
-            if (daysOfWeek.indexOf(day) === 1) subtract = 1;
-            setStartIndex((prevState) => prevState - subtract);
-            return;
+        setTrainingDropdown({
+            type,
+            show: true,
+        });
+    }
+
+    const handleCLoseChangeTrainingDropdown = (e: MouseEvent, data: string) => {
+        e.preventDefault();
+
+        if (trainingDropdown.type === 'trainingPlan') {
+            setTrainingPlan(data);
+        } else {
+            setWeekDayPlan(data);
         }
 
-        setStartIndex(daysOfWeek.indexOf(day));
+        setTrainingDropdown({
+            type: trainingDropdown.type,
+            show: false,
+        });
+
     }
 
     return (
@@ -37,42 +57,34 @@ export const TrainingSection = () => {
             <section className={`${styles['fd-training-title']}`}>
                 <div className={`${styles['fd-dropdown']}`}>
                     <div className={styles['fd-dropdown-training']}>
-                        <h3 className={`${styles['fd-dropdown-training-title']}`}>Título do Treino</h3>
-                        <Image src="/images/more.svg" alt='More Icon - Open more training plans' width={25} height={25}/>
-                    </div>
 
-                    <ul className={`${styles['fd-dropdown-title-list']}`}>
-                        <li className={`${styles['fd-dropdown-ttitle-item']}`}>Título do Treino 1</li>
-                        <li className={`${styles['fd-dropdown-ttitle-item']}`}>Título do Treino 2</li>
-                        <li className={`${styles['fd-dropdown-ttitle-item']}`}>Título do Treino 3</li>
-                        <li className={`${styles['fd-dropdown-ttitle-item']}`}>Título do Treino 4</li>
-                        <li className={`${styles['fd-dropdown-ttitle-item']}`}>Título do Treino 5</li>
-                        <li className={`${styles['fd-dropdown-ttitle-item']}`}>Título do Treino 5</li>
-                        <li className={`${styles['fd-dropdown-ttitle-item']}`}>Título do Treino 5</li>
-                        <li className={`${styles['fd-dropdown-ttitle-item']}`}>Título do Treino 5</li>
-                    </ul>
+                        <div className={`${styles['fd-sec-image']}`}>
+                            <Image src="/images/dumbbell-solid.svg" alt="Training Icon" width={50} height={50} />
+                        </div>
+                        <div className={`${styles['title']}`}>
+                            <h3 className={`${styles['fd-dropdown-training-title']}`} onClick={(e) => handleClickInChangeTraining(e, 'trainingPlan')}>{trainingPlan}</h3>
+
+                            <div className={`${styles['fd-dropdown-training-subtitle']}`}>
+
+                                <h3 className={`${styles['fd-title']}`} onClick={(e) => handleClickInChangeTraining(e, 'weekDayPlan')}>{weekDayPlan}</h3>
+                                <div className={`${styles['play-btn']}`} title='Começar treino'>
+                                    <img src="/images/play.svg" alt="" />
+                                </div>
+                            </div>
+                            <ul className={`${styles['fd-dropdown-title-list']} ${trainingDropdown.show ? styles['fd-dropdown-title-list-show'] : ''}`}>
+                                {trainingList.map((item, index) => <li onClick={(e) => handleCLoseChangeTrainingDropdown(e, item)} key={`${item}-${index}`} className={`${styles['fd-dropdown-title-item']}`}>{item}</li>)}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </section>
             <section className={`${styles['fd-training-section']}`}>
-                <div className={`${styles['fd-weekdays']}`}>
-                    {/* <h3 className={`${styles['fd-title']}`}>Dias da Semana</h3> */}
-                    {daysOfWeek.slice(startIndex, startIndex + maxVisibleSpans).map((day, index) => (
-                        <span key={index} className={`${styles['fd-days']} ${styles[`i-${index}`]}`} onClick={(e) => handleSpanClick(e, day, index)} title={day}>{day}</span>
-                    ))}
-                </div>
 
                 <div className={`${styles['exercism-day-list']}`}>
 
-                    <div className={`${styles['title']}`}>
-                        <h3 className={`${styles['fd-title']}`}>Treino de peito</h3>
-                        <div className={`${styles['play-btn']}`} title='Começar treino'>
-                            <img src="/images/play.svg" alt="" />
-                        </div>
-                    </div>
-
                     <div className={`${styles['exercism-plan']}`}>
                         <div className={`${styles['exercism']}`}>
-                            <span className={`${styles['fd-exer']} ${styles['fd-exer-selected']}`}>Flexão declinada / 3x8 - 30s off</span>
+                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
                             <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
                             <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
                             <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
