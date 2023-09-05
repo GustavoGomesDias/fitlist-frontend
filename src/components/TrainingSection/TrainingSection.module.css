@@ -212,6 +212,18 @@
         flex-direction: column;
     }
 
+    .fd-dropdown-training-title {
+        font-size: 2rem;
+    }
+
+    .fd-title {
+        font-size: 1.3rem;
+    }
+
+    .fd-sec-image {
+        height: 130px;
+    }
+
     .exercism-day-list {
         height: 100%;
     }
