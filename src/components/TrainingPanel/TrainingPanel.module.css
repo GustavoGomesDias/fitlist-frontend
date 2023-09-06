@@ -1,0 +1,46 @@
+.fl-setting-section {
+    padding: 0 1.5rem;
+}
+
+.fl-settings-header {
+    font-size: 2rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.fl-setting-weekdays {
+    padding: 1rem;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.fl-settings-dropdown {
+    width: 80%;
+    height: 200px;
+    box-shadow: var(--box-shadow);
+    background-image: var(--bg-gradient);
+    margin-top: .5rem;
+    padding: .5rem;
+    position: absolute;
+    transform: translate(1000%);
+}
+
+.fl-settings-dropdown-item {
+    font-size: 1.1rem;
+    padding: .5rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: solid 1px var(--text-color);
+    transition: all .5s;
+}
+
+.fl-settings-dropdown-item:hover {
+    background-color: var(--normal-color);
+}
+
+.fl-settings-dropdown-show {
+    transform: translate(0%);
+}

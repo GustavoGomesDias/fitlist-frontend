@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { LateralMenu } from '@/components/LateralMenu/LateralMenu';
 import styles from '@/styles/Settings.module.css';
 import { WeekDayCard } from '@/components/WeekDayCard/WeekDayCard';
+import { TrainingPanel } from '@/components';
 
 export default function Settings() {
     const trainings = [{
@@ -46,13 +47,7 @@ export default function Settings() {
 
             <section className={styles['fl-settings']}>
                 <LateralMenu components={[<span>Treinos</span>, <span>Configuração de Conta</span>]} />
-                <section className={styles['fl-setting-section']}>
-                    <h3 className={styles['fl-settings-header']}>Treinos</h3>
-
-                    <div className={styles['fl-setting-weekdays']}>
-                        {trainings.map((item) => <WeekDayCard weekday={item['weekday']} training={item['training']} />)}
-                    </div>
-                </section>
+               <TrainingPanel />
             </section>
         </>
     );
