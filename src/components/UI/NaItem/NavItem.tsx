@@ -1,4 +1,5 @@
 import styles from 'UI/NaItem/NavItem.module.css'
+import { makeid } from '@/helpers';
 
 export interface NavItemProps {
     navItemComponent: JSX.Element
@@ -8,6 +9,6 @@ export interface NavItemProps {
 export const NavItem = ({ navItemComponent, index }: NavItemProps) => {
 
     return (
-        <span key={index} className={`${styles['ft-nav-item']}`}>{navItemComponent}</span>
+        <span key={`${makeid(5)}-${index}}`} className={`${styles['ft-nav-item']}`}>{navItemComponent}</span>
     );
 }
