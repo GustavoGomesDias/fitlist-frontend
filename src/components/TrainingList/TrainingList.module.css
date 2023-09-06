@@ -1,0 +1,62 @@
+.fd-training-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 60vh;
+}
+
+.exercism-day-list {
+    height: 90%;
+    padding: 0 .5rem;
+
+    box-shadow: var(--box-shadow);
+    border-radius: 5px;
+
+    overflow-y: hidden;
+}
+
+.exercism-plan {
+    height: 100%;
+    padding: .5rem;
+}
+
+.exercism {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 450px;
+}
+
+.fd-exer {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--text-color);
+    padding: 1rem;
+    overflow: hidden;
+    width: 450px;
+    border-bottom: 1px solid var(--text-color);
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.fd-exer-selected {
+    background-color: var(--normal-color);
+    border-radius: 5px;
+}
+
+@media (max-width: 767px) {
+    .fd-training-section {
+        flex-direction: column;
+    }
+
+    .exercism-day-list {
+        height: 100%;
+    }
+
+    .exercism-plan {
+        height: 100%;
+        padding: .5 1rem;
+    }
+}

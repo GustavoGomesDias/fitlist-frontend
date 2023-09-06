@@ -1,6 +1,7 @@
 import { useState, MouseEvent } from 'react';
 import styles from '@/components/TrainingSection/TrainingSection.module.css';
 import Image from 'next/image';
+import { TrainigList } from '@/components/TrainingList/TrainingList';
 
 
 export type DropdownProps =  {
@@ -78,28 +79,7 @@ export const TrainingSection = () => {
                     </div>
                 </div>
             </section>
-            <section className={`${styles['fd-training-section']}`}>
-
-                <div className={`${styles['exercism-day-list']}`}>
-
-                    <div className={`${styles['exercism-plan']}`}>
-                        <div className={`${styles['exercism']}`}>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                            <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <TrainigList />
         </>
     )
 }
