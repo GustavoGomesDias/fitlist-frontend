@@ -1,6 +1,14 @@
+import { useState } from 'react';
+import { Exercism } from '@/data/models/Exercism';
 import styles from './TrainingList.module.css';
+import { makeid } from '@/helpers';
 
-export const TrainigList = (): JSX.Element => {
+export interface TrainigListProps {
+    exercismList: Exercism[]
+}
+
+export const TrainigList = ({ exercismList }: TrainigListProps): JSX.Element => {
+    const [draggedItem, setDraggedItem] = useState<Exercism | undefined>(undefined);
     return (
         <section className={`${styles['fd-training-section']}`}>
 
@@ -8,18 +16,7 @@ export const TrainigList = (): JSX.Element => {
 
                 <div className={`${styles['exercism-plan']}`}>
                     <div className={`${styles['exercism']}`}>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
-                        <span className={`${styles['fd-exer']}`}>Flexão declinada / 3x8 - 30s off</span>
+                        {exercismList.map((exercism) => <span draggable="true" key={makeid(9)} className={`${styles['fd-exer']}`}>{exercism.name} / {exercism.time ? `${exercism.time}s` : exercism.repetition}x{exercism.serie} - {exercism.timeOff}s off</span>)}
                     </div>
                 </div>
             </div>

@@ -88,7 +88,7 @@ p {
   overflow-y: hidden;
 }
 
-h1, h2, h3, li {
+h1, h2, h3, li, h4, span {
   font-family: 'Montserrat', sans-serif;
   color: var(--text-color);
   overflow: hidden;
