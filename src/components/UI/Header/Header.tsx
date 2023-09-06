@@ -2,6 +2,7 @@ import { NavItem } from '../NaItem/NavItem';
 import { Logo } from '../../Logo/Logo';
 import style from 'UI/Header/Header.module.css';
 import Link from 'next/link';
+import { makeid } from '@/helpers';
 
 export interface HeaderProps {
     navItemComponents: JSX.Element[]
@@ -14,7 +15,7 @@ export const Header = ({ navItemComponents }: HeaderProps) => {
                 <Logo size='xl' logoHeightClass='header-logo' title='Voltar para tela inicial' />
             </Link>
             <nav className={`${style['fl-nav']}`}>
-                {navItemComponents.map((navItem, index) => <NavItem navItemComponent={navItem} index={index}/>)}
+                {navItemComponents.map((navItem) => <NavItem navItemComponent={navItem} key={makeid(9)} />)}
             </nav>
         </header>
     )

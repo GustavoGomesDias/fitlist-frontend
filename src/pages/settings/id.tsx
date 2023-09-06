@@ -6,6 +6,7 @@ import { LateralMenu } from '@/components/LateralMenu/LateralMenu';
 import styles from '@/styles/Settings.module.css';
 import { WeekDayCard } from '@/components/WeekDayCard/WeekDayCard';
 import { TrainingPanel } from '@/components';
+import { makeid } from '@/helpers';
 
 export default function Settings() {
     const trainings = [{
@@ -38,7 +39,7 @@ export default function Settings() {
             <SEO />
             <Header
                 navItemComponents={[
-                    <Link href='/'>
+                    <Link href='/' key={makeid(9)}>
                         <Image src="/images/back.svg" alt="Voltar para Home" width="25" height="25" key="/images/settings.svg" title='Voltar para Home'/>
                     </Link>
                 ]}
@@ -46,7 +47,7 @@ export default function Settings() {
 
 
             <section className={styles['fl-settings']}>
-                <LateralMenu components={[<span>Treinos</span>, <span>Configuração de Conta</span>]} />
+                <LateralMenu components={['Treinos', 'Configuração de Conta']} />
                <TrainingPanel />
             </section>
         </>

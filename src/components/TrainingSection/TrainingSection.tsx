@@ -68,7 +68,7 @@ export const TrainingSection = () => {
 
                                 <h3 className={`${styles['fd-title']}`} onClick={(e) => handleClickInChangeTraining(e, 'weekDayPlan')}>{weekDayPlan}</h3>
                                 <div className={`${styles['play-btn']}`} title='Começar treino'>
-                                    <img src="/images/play.svg" alt="" />
+                                    <Image src="/images/play.svg" alt="Play training" width={20} height={20} />
                                 </div>
                             </div>
                             <ul className={`${styles['fd-dropdown-title-list']} ${trainingDropdown.show ? styles['fd-dropdown-title-list-show'] : ''}`}>
