@@ -2,9 +2,11 @@ import { useState, MouseEvent } from 'react';
 import styles from '@/components/TrainingSection/TrainingSection.module.css';
 import Image from 'next/image';
 import { TrainigList } from '@/components/TrainingList/TrainingList';
+import { makeid } from '@/helpers';
+import { Exercism } from '@/data/models/Exercism';
 
 
-export type DropdownProps =  {
+export type DropdownProps = {
     type: 'trainingPlan' | 'weekDayPlan',
     show: boolean
 }
@@ -53,6 +55,90 @@ export const TrainingSection = () => {
 
     }
 
+
+    const trainingListMock: Exercism[] = [{
+        id: 'a1',
+        serie: 3,
+        repetition: 8,
+        name: `Flexão declinada - 1`,
+        description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
+        sequence: 1,
+        timeOff: 30,
+        weekDayPlanId: makeid(5),
+    }, {
+        id: 'a2',
+        serie: 3,
+        repetition: 8,
+        name: `Flexão declinada - 1`,
+        description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
+        sequence: 1,
+        timeOff: 30,
+        weekDayPlanId: makeid(5),
+    }, {
+        id: 'a3',
+        serie: 3,
+        repetition: 8,
+        name: `Flexão declinada - 3`,
+        description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
+        sequence: 1,
+        timeOff: 30,
+        weekDayPlanId: makeid(5),
+    }, {
+        id: 'a4',
+        serie: 3,
+        repetition: 8,
+        name: `Flexão declinada - 4`,
+        description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
+        sequence: 1,
+        timeOff: 30,
+        weekDayPlanId: makeid(5),
+    }, {
+        id: 'a5',
+        serie: 3,
+        repetition: 8,
+        name: `Flexão declinada - 5`,
+        description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
+        sequence: 1,
+        timeOff: 30,
+        weekDayPlanId: makeid(5),
+    }, {
+        id: 'a6',
+        serie: 3,
+        repetition: 8,
+        name: `Flexão declinada - 6`,
+        description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
+        sequence: 1,
+        timeOff: 30,
+        weekDayPlanId: makeid(5),
+    }, {
+        id: 'a7',
+        serie: 3,
+        repetition: 8,
+        name: `Flexão declinada - 6`,
+        description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
+        sequence: 1,
+        timeOff: 30,
+        weekDayPlanId: makeid(5),
+    }, {
+        id: 'a8',
+        serie: 3,
+        repetition: 8,
+        name: `Flexão declinada - 7`,
+        description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
+        sequence: 1,
+        timeOff: 30,
+        weekDayPlanId: makeid(5),
+    }, {
+        id: 'a9',
+        serie: 3,
+        repetition: 8,
+        name: `Flexão declinada - 8`,
+        description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
+        sequence: 1,
+        timeOff: 30,
+        weekDayPlanId: makeid(5),
+    }]
+
     return (
         <>
             <section className={`${styles['fd-training-title']}`}>
@@ -79,7 +165,7 @@ export const TrainingSection = () => {
                     </div>
                 </div>
             </section>
-            <TrainigList />
+            <TrainigList exercismList={trainingListMock} />
         </>
     )
 }
