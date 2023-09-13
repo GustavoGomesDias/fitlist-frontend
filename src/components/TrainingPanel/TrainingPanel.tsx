@@ -7,7 +7,12 @@ import { Exercism } from '@/data/models/Exercism';
 import { TrainigList } from '../TrainingList/TrainingList';
 import { makeid } from '@/helpers';
 
-export const TrainingPanel = (): JSX.Element => {
+
+export interface TrainigPanelProps {
+    draggable: boolean
+}
+
+export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => {
     const [showDropdown, setShowDrodown] = useState<boolean>(false);
     const [trainingTitle, setTrainingTitle] = useState<string>('Treino 1');
     const [renderTrainingList, setRenderTrainingList] = useState<boolean>(false);
@@ -147,7 +152,7 @@ export const TrainingPanel = (): JSX.Element => {
             {renderTrainingList ?
                 <div className={styles['fl-setting-training-list']}>
                     <h4 className={styles['fl-setting-training-list-weekday']}>{weekDayPlanInfo}</h4>
-                    <TrainigList exercismList={exercismList} />
+                    <TrainigList exercismList={exercismList} draggable={draggable} />
 
                     <div className={styles['fl-setting-training-list-title']} onClick={(e) => handleShowWeekDayCard(e)}>
                         <Image src="/images/back.svg" alt="Voltar para Home" width="20" height="20" key="/images/settings.svg" title='Voltar para Home' /> <span>Voltar</span>

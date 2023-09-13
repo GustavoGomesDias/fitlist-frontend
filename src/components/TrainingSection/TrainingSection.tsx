@@ -11,7 +11,11 @@ export type DropdownProps = {
     show: boolean
 }
 
-export const TrainingSection = () => {
+export interface TrainingSectionProps {
+    draggable: boolean
+}
+
+export const TrainingSection = ({ draggable }: TrainingSectionProps) => {
 
     const [trainingDropdown, setTrainingDropdown] = useState<DropdownProps>({
         type: 'trainingPlan',
@@ -69,7 +73,7 @@ export const TrainingSection = () => {
         id: 'a2',
         serie: 3,
         repetition: 8,
-        name: `Flexão declinada - 1`,
+        name: `Flexão declinada - 2`,
         description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
         sequence: 1,
         timeOff: 30,
@@ -165,7 +169,7 @@ export const TrainingSection = () => {
                     </div>
                 </div>
             </section>
-            <TrainigList exercismList={trainingListMock} />
+            <TrainigList exercismList={trainingListMock} draggable={draggable}/>
         </>
     )
 }

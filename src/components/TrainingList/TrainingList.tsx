@@ -5,13 +5,28 @@ import { makeid } from '@/helpers';
 
 export interface TrainigListProps {
     exercismList: Exercism[]
+    draggable: boolean
 }
 
-export const TrainigList = ({ exercismList }: TrainigListProps): JSX.Element => {
+export const TrainigList = ({ exercismList, draggable }: TrainigListProps): JSX.Element => {
     const [items, setItems] = useState<Exercism[]>(exercismList);
 
-    const handleDragStart = (e: DragEvent, index: number) => {
+    const handleDragStart = (e: DragEvent, index: number, id: string) => {
         e.dataTransfer.setData('index', String(index));
+
+        const exer = document.getElementById(id);
+        console.log(exer);
+        if (exer !== null && exer !== undefined) {
+
+            const elements = document.getElementsByClassName(`${styles['fd-exer']}`);
+
+            if (elements !== null && elements !== undefined) {
+                for (let i = 0; i < elements.length; i++) {
+                    elements[i].setAttribute('style', 'opacity: 0.4');
+                }
+            }
+            exer.setAttribute('style', 'opacity: 1');
+        }
     }
 
     const handleDragOver = (e: DragEvent) => {
@@ -41,8 +56,9 @@ export const TrainigList = ({ exercismList }: TrainigListProps): JSX.Element => 
                     <div className={`${styles['exercism']}`}>
                         {items.map((exercism, index) =>
                             <span
-                                draggable="true"
-                                onDragStart={(e => handleDragStart(e, index))}
+                                id={exercism.name}
+                                draggable={draggable}
+                                onDragStart={(e => handleDragStart(e, index, exercism.name))}
                                 onDragOver={(e) => handleDragOver(e)}
                                 onDrop={(e) => handleDropItem(e, index)}
                                 key={makeid(9)}
