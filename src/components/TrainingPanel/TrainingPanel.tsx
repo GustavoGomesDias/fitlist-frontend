@@ -35,7 +35,7 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
             id: 'a1',
             serie: 3,
             repetition: 8,
-            name: `Flexão declinada - ${makeid(9)}`,
+            name: `Flexão declinada - ${1}`,
             description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
             sequence: 1,
             timeOff: 30
@@ -43,7 +43,7 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
             id: 'a2',
             serie: 3,
             repetition: 8,
-            name: `Flexão declinada - ${makeid(9)}`,
+            name: `Flexão declinada - ${2}`,
             description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
             sequence: 1,
             timeOff: 30
@@ -51,7 +51,7 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
             id: 'a3',
             serie: 3,
             repetition: 8,
-            name: `Flexão declinada - ${makeid(9)}`,
+            name: `Flexão declinada - ${3}`,
             description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
             sequence: 1,
             timeOff: 30
@@ -59,7 +59,7 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
             id: 'a4',
             serie: 3,
             repetition: 8,
-            name: `Flexão declinada - ${makeid(9)}`,
+            name: `Flexão declinada - ${4}`,
             description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
             sequence: 1,
             timeOff: 30
@@ -67,7 +67,7 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
             id: 'a5',
             serie: 3,
             repetition: 8,
-            name: `Flexão declinada - ${makeid(9)}`,
+            name: `Flexão declinada - ${5}`,
             description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
             sequence: 1,
             timeOff: 30
@@ -75,7 +75,7 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
             id: 'a6',
             serie: 3,
             repetition: 8,
-            name: `Flexão declinada - ${makeid(9)}`,
+            name: `Flexão declinada - ${6}`,
             description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
             sequence: 1,
             timeOff: 30
@@ -83,7 +83,7 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
             id: 'a7',
             serie: 3,
             repetition: 8,
-            name: `Flexão declinada - ${makeid(9)}`,
+            name: `Flexão declinada - ${7}`,
             description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
             sequence: 1,
             timeOff: 30
@@ -91,7 +91,7 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
             id: 'a8',
             serie: 3,
             repetition: 8,
-            name: `Flexão declinada - ${makeid(9)}`,
+            name: `Flexão declinada - ${8}`,
             description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
             sequence: 1,
             timeOff: 30
@@ -99,7 +99,7 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
             id: 'a9',
             serie: 3,
             repetition: 8,
-            name: `Flexão declinada - ${makeid(9)}`,
+            name: `Flexão declinada - ${9}`,
             description: 'Flexão com os pés em alguma coisa elevada e as mãos no chão.',
             sequence: 1,
             timeOff: 30

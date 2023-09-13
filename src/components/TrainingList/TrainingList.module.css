@@ -38,7 +38,7 @@
     border-bottom: 1px solid var(--text-color);
     display: flex;
     justify-content: center;
-    cursor: pointer;
+    cursor: grab;
 }
 
 .fd-exer-selected {

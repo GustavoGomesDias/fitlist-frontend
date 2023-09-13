@@ -25,7 +25,7 @@ export const TrainigList = ({ exercismList, draggable }: TrainigListProps): JSX.
                     elements[i].setAttribute('style', 'opacity: 0.4');
                 }
             }
-            exer.setAttribute('style', 'opacity: 1');
+            exer.setAttribute('style', 'opacity: 1;');
         }
     }
 
