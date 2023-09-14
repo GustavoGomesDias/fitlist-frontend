@@ -20,3 +20,8 @@
 .input-form:focus {
     transform: scale(1.1);
 }
+
+.input-form-readonly {
+    background-color: var(--normal-color);
+    color: var(--text-color);
+}

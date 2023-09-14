@@ -1,0 +1,42 @@
+.fl-settings-account-mode {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow-y: hidden;
+}
+
+.fl-settings-account-mode img {
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.fl-settings-account-mode img:hover {
+    transform: scale(1.1);
+}
+
+.fl-settings-account {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    gap: .5rem;
+}
+
+.fl-settings-account label {
+    width: 80%;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.fl-settings-account-btn-group {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-direction: column;
+    gap: .5rem;
+}

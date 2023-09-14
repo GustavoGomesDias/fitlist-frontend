@@ -1,40 +1,14 @@
 import { Header } from '@/components/UI/Header/Header';
 import { SEO } from '@/components/SEO/SEO';
 import Image from 'next/image';
-import Link from 'next/link';
 import { LateralMenu } from '@/components/LateralMenu/LateralMenu';
 import styles from '@/styles/Settings.module.css';
-import { WeekDayCard } from '@/components/WeekDayCard/WeekDayCard';
-import { TrainingPanel } from '@/components';
-import { makeid } from '@/helpers';
+import { TrainingPanel, AccountPanel } from '@/components';
 import { useRouter } from 'next/router';
 
 export default function Settings() {
 
     const { back } = useRouter();
-
-    const trainings = [{
-        weekday: 'Segunda-feira',
-        training: 'Peito',
-    }, {
-        weekday: 'Segunda-feira',
-        training: 'Peito',
-    }, {
-        weekday: 'Segunda-feira',
-        training: 'Peito',
-    }, {
-        weekday: 'Segunda-feira',
-        training: 'Peito',
-    }, {
-        weekday: 'Segunda-feira',
-        training: 'Peito',
-    }, {
-        weekday: 'Segunda-feira',
-        training: 'Peito',
-    }, {
-        weekday: 'Segunda-feira',
-        training: 'Peito',
-    }];
 
     // fl-settings-btn
 
@@ -50,7 +24,9 @@ export default function Settings() {
 
             <section className={styles['fl-settings']}>
                 <LateralMenu components={['Treinos', 'Configuração de Conta']} />
-               <TrainingPanel draggable={true} />
+               {/* <TrainingPanel draggable={true} /> */}
+
+               <AccountPanel />
             </section>
         </>
     );

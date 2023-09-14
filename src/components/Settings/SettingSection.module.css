@@ -8,6 +8,7 @@
     font-size: 2rem;
     font-weight: 700;
     cursor: pointer;
+    height: 40px;
 }
 
 .fl-settings-dropdown {
