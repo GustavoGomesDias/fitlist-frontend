@@ -7,8 +7,12 @@ import styles from '@/styles/Settings.module.css';
 import { WeekDayCard } from '@/components/WeekDayCard/WeekDayCard';
 import { TrainingPanel } from '@/components';
 import { makeid } from '@/helpers';
+import { useRouter } from 'next/router';
 
 export default function Settings() {
+
+    const { back } = useRouter();
+
     const trainings = [{
         weekday: 'Segunda-feira',
         training: 'Peito',
@@ -39,9 +43,7 @@ export default function Settings() {
             <SEO />
             <Header
                 navItemComponents={[
-                    <Link href='/' key={makeid(9)}>
-                        <Image src="/images/back.svg" alt="Voltar para Home" width="25" height="25" key="/images/settings.svg" title='Voltar para Home'/>
-                    </Link>
+                    <Image src="/images/back.svg" alt="Voltar para Home" width="25" height="25" key="/images/settings.svg" title='Voltar para Home' onClick={() => back()} />
                 ]}
             />
 
