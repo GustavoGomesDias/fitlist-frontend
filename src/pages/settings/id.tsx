@@ -12,8 +12,6 @@ export default function Settings() {
 
     const { back } = useRouter();
 
-    // fl-settings-btn
-
     return (
         <>
             <SEO />

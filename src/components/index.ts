@@ -7,3 +7,4 @@ export * from './WeekDayCard/WeekDayCard';
 export * from './TrainingList/TrainingList';
 export * from './Settings/SettingSection';
 export * from './AccountPanel/AccountPanel';
+export * from './FitList/Fitlist';

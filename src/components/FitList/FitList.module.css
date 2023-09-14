@@ -1,18 +1,3 @@
-.transition-logo {
-    animation: showTransition 1.5s ease;
-    opacity: 0;
-    position: absolute;
-    transform: translateX(1000%);
-}
-
-.home-content {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
 .home-page-content {
     animation: show 2s ease;
     overflow-y: hidden;
@@ -24,42 +9,6 @@
     width: 60%;
 }
 
-.home-page-login-form {
-    animation: show 2s ease-in-out;
-    overflow-y: hidden;
-    box-shadow: var(--box-shadow);
-    border-radius: 5px;
-}
-
-.login-form {
-    display: flex;
-    flex-direction: column;
-    width: 28vw;
-    height: 300px;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-    
-    border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.register-form {
-    display: flex;
-    flex-direction: column;
-    width: 28vw;
-    height: 500px;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-    
-    border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-}
-
-
 @media (max-width: 767px) {
     .home-content {
         flex-direction: column;
@@ -67,10 +16,6 @@
     }
 
     .login-form {
-        width: 80vw;
-    }
-
-    .register-form {
         width: 80vw;
     }
 
@@ -87,7 +32,6 @@
         width: 80%;
     }
 }
-
 
 @keyframes showTransition {
     0% {
