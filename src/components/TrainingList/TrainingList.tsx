@@ -15,9 +15,8 @@ export const TrainigList = ({ exercismList, draggable }: TrainigListProps): JSX.
         e.dataTransfer.setData('index', String(index));
 
         const exer = document.getElementById(id);
-        console.log(exer);
-        if (exer !== null && exer !== undefined) {
 
+        if (exer !== null && exer !== undefined) {
             const elements = document.getElementsByClassName(`${styles['fd-exer']}`);
 
             if (elements !== null && elements !== undefined) {
@@ -58,9 +57,9 @@ export const TrainigList = ({ exercismList, draggable }: TrainigListProps): JSX.
                             <span
                                 id={exercism.name}
                                 draggable={draggable}
-                                onDragStart={(e => handleDragStart(e, index, exercism.name))}
-                                onDragOver={(e) => handleDragOver(e)}
-                                onDrop={(e) => handleDropItem(e, index)}
+                                onDragStart={draggable ? (e => handleDragStart(e, index, exercism.name)) : (e) => {}}
+                                onDragOver={draggable ? (e) => handleDragOver(e): (e) => {}}
+                                onDrop={draggable ? (e) => handleDropItem(e, index): (e) => {}}
                                 key={makeid(9)}
                                 className={`${styles['fd-exer']}`}>
                                     {exercism.name} / {exercism.time ? `${exercism.time}s` : exercism.repetition}x{exercism.serie} - {exercism.timeOff}s off
