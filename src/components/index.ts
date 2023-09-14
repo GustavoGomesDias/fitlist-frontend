@@ -5,3 +5,4 @@ export * from './TrainingPanel/TrainingPanel';
 export * from './TrainingSection/TrainingSection';
 export * from './WeekDayCard/WeekDayCard';
 export * from './TrainingList/TrainingList';
+export * from './Settings/SettingSection';

@@ -6,6 +6,8 @@ import { WeekDayCard } from '../WeekDayCard/WeekDayCard';
 import { Exercism } from '@/data/models/Exercism';
 import { TrainigList } from '../TrainingList/TrainingList';
 import { makeid } from '@/helpers';
+import { SettingSection } from '../Settings/SettingSection';
+import { title } from 'process';
 
 
 export interface TrainigPanelProps {
@@ -141,15 +143,9 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
     const trainingListMock = ['Treino 1', 'Treino 2', 'Treino 3', 'Treino 4', 'Treino 5', 'Treino 6', 'Treino 7', 'Treino 8', 'Treino 9', 'Treino 10', 'Treino 11', 'Treino 12', 'Treino 13'];
 
     return (
-        <section className={styles['fl-setting-section']}>
-            <div>
-                <h3 className={styles['fl-settings-header']} onClick={(e) => handleShowDropdown(e)}>{trainingTitle}</h3>
 
-                <ul className={`${styles['fl-settings-dropdown']} ${showDropdown ? styles['fl-settings-dropdown-show'] : ''}`}>
-                    {trainingListMock.map((item, index) => <li className={styles['fl-settings-dropdown-item']} onClick={(e => handleShowDropdown(e, item))} key={`${item}-${index}`}>{item}</li>)}
-                </ul>
-            </div>
-            {renderTrainingList ?
+        <SettingSection
+            component={renderTrainingList ?
                 <div className={styles['fl-setting-training-list']}>
                     <h4 className={styles['fl-setting-training-list-weekday']}>{weekDayPlanInfo}</h4>
                     <TrainigList exercismList={exercismList} draggable={draggable} />
@@ -163,7 +159,13 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
                     {trainingsMock.map((item, index) => <WeekDayCard weekDayPlanId={String(index)} handleClickFn={handleRenderTrainingList} key={`${item.weekday}-${index}`} weekday={item['weekday']} training={item['training']} />)}
                 </div>)
             }
-
-        </section>
+            dropdownProps={{
+                hasDropdown: true,
+                dropdownList: trainingListMock,
+                handleShowDropdown: handleShowDropdown,
+                showDropdown: showDropdown
+            }}
+            title={trainingTitle}
+        />
     );
 }
