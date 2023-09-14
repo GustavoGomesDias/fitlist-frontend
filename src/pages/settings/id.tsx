@@ -23,7 +23,6 @@ export default function Settings() {
                 ]}
             />
 
-
             <section className={styles['fl-settings']}>
                 <LateralMenu components={[{
                     content: 'Treinos',
@@ -36,9 +35,6 @@ export default function Settings() {
                 }]} />
 
                 {settingType === 'training' ? <TrainingPanel draggable={true} /> : <AccountPanel />}
-               
-
-               
             </section>
         </>
     );
