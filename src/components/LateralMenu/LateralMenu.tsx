@@ -3,7 +3,7 @@ import { NavItem } from '../UI';
 import { makeid } from '@/helpers';
 
 export interface LateralMenuProps {
-    components: JSX.Element[] | string[]
+    components: JSX.Element[] | string[] | Record<any, any>[]
     onChangeHandle?: string // Vai receber um setState
 }
 
