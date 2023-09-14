@@ -1,5 +1,7 @@
 .fl-setting-section {
     padding: 0 1.5rem;
+    width: 100%;
+    overflow: hidden;
 }
 
 .fl-settings-header {
@@ -43,4 +45,42 @@
 
 .fl-settings-dropdown-show {
     transform: translate(0%);
+}
+
+.fl-setting-training-list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.fl-setting-training-list-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.fl-setting-training-list-title:hover {
+    transform: scale(1.1);
+}
+
+.fl-setting-training-list-title span {
+    font-size: 1.3rem;
+}
+
+.fl-setting-training-list-weekday {
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: .8rem;
+    width: 100%;
+    text-align: center;
+}
+
+.fl-setting-training-list-title img {
+    position: relative;
 }
