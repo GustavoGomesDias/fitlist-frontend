@@ -1,7 +1,7 @@
 import { useState, MouseEvent, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Button, Form, Header, Input } from '@/components/UI';
+import { Button, Form, Header, Input, Select } from '@/components/UI';
 import styles from '@/styles/Plan.module.css'
 import { SEO } from '@/components';
 import { Exercism } from '@/data/models/Exercism';
@@ -48,14 +48,23 @@ export default function CreatePlan() {
 
 
     const makeSecondStep = (exer: Omit<Exercism, 'id'>) => {
-        return (<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exercism[0].name + `${exercism.length}`}>
-            <Input
-                id="Dia da semana"
-                name="name"
-                placeholder="Dia da semana (selec))"
-                type="text"
-                onChangeHandle={() => { }}
-            />
+        return (<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exer.name + `${exercism.length}`}>
+            <Select key={exer.name + `${exercism.length}-select`} weekDayList={[{
+                id: 'segunda',
+                name: 'Segunda-Feira'
+            }, {
+                id: 'terça',
+                name: 'Terça-Feira'
+            }, {
+                id: 'quarta',
+                name: 'Quarta-Feira'
+            }, {
+                id: 'Quinta',
+                name: 'Terça-Feira'
+            }, {
+                id: 'Sexta',
+                name: 'Sexta-Feira'
+            }]} />
             <Input
                 id="name"
                 name="name"
@@ -121,13 +130,22 @@ export default function CreatePlan() {
     }
 
     const secondStep = [<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exercism[0].name + '0'}>
-        <Input
-            id="Dia da semana"
-            name="name"
-            placeholder="Dia da semana (selec))"
-            type="text"
-            onChangeHandle={() => { }}
-        />
+        <Select key={exercism[0].name + '0' + 'select'} weekDayList={[{
+            id: 'segunda',
+            name: 'Segunda-Feira'
+        }, {
+            id: 'terça',
+            name: 'Terça-Feira'
+        }, {
+            id: 'quarta',
+            name: 'Quarta-Feira'
+        }, {
+            id: 'Quinta',
+            name: 'Terça-Feira'
+        }, {
+            id: 'Sexta',
+            name: 'Sexta-Feira'
+        }]} />
         <Input
             id="name"
             name="name"
