@@ -1,0 +1,59 @@
+.create-training-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.create-training-sequence {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 60px;
+    overflow: hidden;
+}
+
+.create-training-sequence div {
+    overflow: hidden;
+
+    background-color: var(--normal-color);
+    color: var(--text-color);
+
+    padding: .5rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--btn-radius);
+    box-shadow: var(--box-shadow);
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+
+    transition: all .5s;
+}
+
+.create-training-sequence div:hover {
+    transform: scale(1.1);
+}
+
+.selected {
+    background-color: var(--success-color) !important;
+}
+
+.create-training-input-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.create-training-input-section-bb {
+    border-bottom: 2px solid var(--normal-color);
+}

@@ -10,19 +10,12 @@ export interface InputProps {
     value?: string
     readonly?: boolean
     width?: string
+    required?: boolean
 }
 
-export const Input = ({id, placeholder, type, name, onChangeHandle, value, readonly, width }: InputProps) => {
-
-    useEffect(() => {
-        const input = document.getElementById(id);
-
-        if (input) {
-            input.setAttribute('style', `width: ${width ? width : '80%'}`);
-        }
-    }, []);
+export const Input = ({id, placeholder, type, name, onChangeHandle, value, readonly, width, required }: InputProps) => {
 
     return (
-        <input  placeholder={placeholder} type={type || 'text'} name={name} id={id} className={`${styles['input-form']} ${readonly && styles['input-form-readonly']}`} value={value} readOnly={readonly}/>
+        <input required={required} placeholder={placeholder} type={type || 'text'} name={name} id={id} className={`${styles['input-form']} ${readonly && styles['input-form-readonly']}`} value={value} readOnly={readonly}/>
     );
 };
