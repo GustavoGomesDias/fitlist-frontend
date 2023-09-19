@@ -1,6 +1,7 @@
-import { useState, MouseEvent, useEffect } from 'react';
+import { useState, MouseEvent, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { FaTrash } from 'react-icons/fa';
 import { Button, Form, Header, Input, Select } from '@/components/UI';
 import styles from '@/styles/Plan.module.css'
 import { SEO } from '@/components';
@@ -25,31 +26,63 @@ export default function CreatePlan() {
         time: -1,
     }]);
 
+    const handleChangeTraining = (e: ChangeEvent<HTMLInputElement>, property: keyof Omit<TrainingPlam, 'id'>) => {
+        e.preventDefault();
+
+        setTrainingPlan((prevState) => {
+            console.log(prevState);
+            prevState[property] = e.target.value
+
+            return prevState;
+        });
+
+    }
+
+    const handleChangeExercism = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, property: keyof Omit<Exercism, 'id'>, index: number) => {
+        e.preventDefault();
+
+        setExercism((prevState) => {
+            const updatedValue = e.target.value;
+
+            return prevState.map((item, i) =>
+                i === index
+                    ? {
+                        ...item,
+                        [property]: typeof item[property] === 'number' ? +updatedValue : updatedValue,
+                    }
+                    : item
+            );
+        });
+    }
+
     const firstStep = <div className={`${styles['create-training-input-section']}`} key="first-step">
         <Input
             id="name"
             name="name"
             placeholder="Nome"
             type="text"
-            onChangeHandle={() => { }}
-            required
-            value={trainingPlan.name}
+            onChangeHandle={(e) => handleChangeTraining(e, 'name')}
         />
         <Input
             id="description"
             name="description"
             placeholder="Breve descrição"
             type="text"
-            onChangeHandle={() => { }}
+            onChangeHandle={(e) => handleChangeTraining(e, 'description')}
             required
-            value={trainingPlan.description}
         />
     </div>;
 
 
     const makeSecondStep = (exer: Omit<Exercism, 'id'>) => {
         return (<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exer.name + `${exercism.length}`}>
-            <Select key={exer.name + `${exercism.length}-select`} weekDayList={[{
+            <div className={styles['create-training-delete']}>
+                <FaTrash />
+            </div>
+            <Select onChangeHandle={(e) => handleChangeExercism(e, 'weekDayPlanId', (exercism.length - 1))} weekDayList={[{
+                id: 'domingo',
+                name: 'Domingo'
+            }, {
                 id: 'segunda',
                 name: 'Segunda-Feira'
             }, {
@@ -64,14 +97,16 @@ export default function CreatePlan() {
             }, {
                 id: 'Sexta',
                 name: 'Sexta-Feira'
+            }, {
+                id: 'sabado',
+                name: 'Sábado'
             }]} />
             <Input
                 id="name"
                 name="name"
                 placeholder="Nome"
                 type="text"
-                value={exer.name}
-                onChangeHandle={() => { }}
+                onChangeHandle={(e) => handleChangeExercism(e, 'name', (exercism.length - 1))}
                 required
             />
             <Input
@@ -79,8 +114,7 @@ export default function CreatePlan() {
                 name="description"
                 placeholder="Breve descrição"
                 type="text"
-                value={exer.description}
-                onChangeHandle={() => { }}
+                onChangeHandle={(e) => handleChangeExercism(e, 'description', (exercism.length - 1))}
                 required
             />
             <Input
@@ -88,8 +122,7 @@ export default function CreatePlan() {
                 name="sequence"
                 placeholder="Sequência do exercício no plano"
                 type="number"
-                value={String(exer.sequence)}
-                onChangeHandle={() => { }}
+                onChangeHandle={(e) => handleChangeExercism(e, 'sequence', (exercism.length - 1))}
                 required
             />
             <Input
@@ -97,8 +130,7 @@ export default function CreatePlan() {
                 name="serie"
                 placeholder="Número de séries para o exercício"
                 type="number"
-                value={String(exer.serie)}
-                onChangeHandle={() => { }}
+                onChangeHandle={(e) => handleChangeExercism(e, 'serie', (exercism.length - 1))}
                 required
             />
             <Input
@@ -106,31 +138,28 @@ export default function CreatePlan() {
                 name="repetition"
                 placeholder="Número de repetições"
                 type="number"
-                value={String(exer.repetition)}
-                onChangeHandle={() => { }}
+                onChangeHandle={(e) => handleChangeExercism(e, 'repetition', (exercism.length - 1))}
             />
             <Input
                 id="time"
                 name="time"
                 placeholder="Tempo do exercício"
                 type="number"
-                value={String(exer.time)}
-                onChangeHandle={() => { }}
+                onChangeHandle={(e) => handleChangeExercism(e, 'time', (exercism.length - 1))}
             />
             <Input
                 id="timeOff"
                 name="timeOff"
                 placeholder="Tempo de descanso"
                 type="number"
-                value={String(exer.timeOff)}
-                onChangeHandle={() => { }}
+                onChangeHandle={(e) => handleChangeExercism(e, 'timeOff', (exercism.length - 1))}
                 required
             />
         </div>);
     }
 
     const secondStep = [<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exercism[0].name + '0'}>
-        <Select key={exercism[0].name + '0' + 'select'} weekDayList={[{
+        <Select onChangeHandle={(e) => handleChangeExercism(e, 'weekDayPlanId', 0)} key={exercism[0].name + '0' + 'select'} weekDayList={[{
             id: 'segunda',
             name: 'Segunda-Feira'
         }, {
@@ -151,8 +180,7 @@ export default function CreatePlan() {
             name="name"
             placeholder="Nome"
             type="text"
-            value={exercism[0].name}
-            onChangeHandle={() => { }}
+            onChangeHandle={(e) => handleChangeExercism(e, 'name', 0)}
             required
         />
         <Input
@@ -160,8 +188,7 @@ export default function CreatePlan() {
             name="description"
             placeholder="Breve descrição"
             type="text"
-            value={exercism[0].description}
-            onChangeHandle={() => { }}
+            onChangeHandle={(e) => handleChangeExercism(e, 'description', 0)}
             required
         />
         <Input
@@ -169,8 +196,7 @@ export default function CreatePlan() {
             name="sequence"
             placeholder="Sequência do exercício no plano"
             type="number"
-            value={String(exercism[0].sequence)}
-            onChangeHandle={() => { }}
+            onChangeHandle={(e) => handleChangeExercism(e, 'sequence', 0)}
             required
         />
         <Input
@@ -178,8 +204,7 @@ export default function CreatePlan() {
             name="serie"
             placeholder="Número de séries para o exercício"
             type="number"
-            value={String(exercism[0].serie)}
-            onChangeHandle={() => { }}
+            onChangeHandle={(e) => handleChangeExercism(e, 'serie', 0)}
             required
         />
         <Input
@@ -187,24 +212,21 @@ export default function CreatePlan() {
             name="repetition"
             placeholder="Número de repetições"
             type="number"
-            value={String(exercism[0].repetition)}
-            onChangeHandle={() => { }}
+            onChangeHandle={(e) => handleChangeExercism(e, 'repetition', 0)}
         />
         <Input
             id="time"
             name="time"
             placeholder="Tempo do exercício"
             type="number"
-            value={String(exercism[0].time)}
-            onChangeHandle={() => { }}
+            onChangeHandle={(e) => handleChangeExercism(e, 'time', 0)}
         />
         <Input
             id="timeOff"
             name="timeOff"
             placeholder="Tempo de descanso"
             type="number"
-            value={String(exercism[0].timeOff)}
-            onChangeHandle={() => { }}
+            onChangeHandle={(e) => handleChangeExercism(e, 'timeOff', 0)}
             required
         />
     </div>];

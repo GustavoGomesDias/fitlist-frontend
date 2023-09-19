@@ -16,6 +16,6 @@ export interface InputProps {
 export const Input = ({id, placeholder, type, name, onChangeHandle, value, readonly, width, required }: InputProps) => {
 
     return (
-        <input required={required} placeholder={placeholder} type={type || 'text'} name={name} id={id} className={`${styles['input-form']} ${readonly && styles['input-form-readonly']}`} value={value} readOnly={readonly}/>
+        <input required={required} placeholder={placeholder} type={type || 'text'} name={name} id={id} className={`${styles['input-form']} ${readonly && styles['input-form-readonly']}`} value={value} readOnly={readonly} onChange={onChangeHandle} />
     );
 };

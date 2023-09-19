@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import style from './Select.module.css';
 
 export interface WeekdaySelectProps {
@@ -5,14 +6,13 @@ export interface WeekdaySelectProps {
         id: string
         name: string
     }[]
-    key: string
+    onChangeHandle: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
-export const Select = ({ weekDayList, key }: WeekdaySelectProps): JSX.Element => {
-    console.log(key);
+export const Select = ({ weekDayList, onChangeHandle }: WeekdaySelectProps): JSX.Element => {
     return (
-        <select key={key} className={style['select']}>
-            {weekDayList.map((wd) => <option value={wd.id} key={wd.id + `-${key}`}>{wd.name}</option>)}
+        <select className={style['select']} onChange={onChangeHandle}>
+            {weekDayList.map((wd) => <option value={wd.id} key={wd.id}>{wd.name}</option>)}
         </select>
     );
 }

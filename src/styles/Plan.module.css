@@ -57,3 +57,24 @@
 .create-training-input-section-bb {
     border-bottom: 2px solid var(--normal-color);
 }
+
+.create-training-delete {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+}
+
+.create-training-delete svg {
+    fill: var(--text-color);
+    font-size: 1.6rem;
+    cursor: pointer;
+
+    transition: all .5s;
+}
+
+.create-training-delete svg:hover {
+    fill: var(--error-color);
+    transform: scale(1.2);
+}
