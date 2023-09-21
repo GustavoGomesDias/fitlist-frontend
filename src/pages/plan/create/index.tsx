@@ -1,4 +1,4 @@
-import { useState, MouseEvent, useEffect, ChangeEvent } from 'react';
+import { useState, MouseEvent, useEffect, ChangeEvent, FormEvent } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FaTrash } from 'react-icons/fa';
@@ -15,7 +15,7 @@ export default function CreatePlan() {
         description: '',
         name: '',
     });
-    const [exercism, setExercism] = useState<Omit<Exercism, 'id'>[]>([{
+    const [exercism, setExercism] = useState<Omit<Exercism, 'id'>>({
         description: '',
         name: '',
         sequence: -1,
@@ -24,7 +24,7 @@ export default function CreatePlan() {
         weekDayPlanId: '',
         repetition: -1,
         time: -1,
-    }]);
+    });
 
     const handleChangeTraining = (e: ChangeEvent<HTMLInputElement>, property: keyof Omit<TrainingPlam, 'id'>) => {
         e.preventDefault();
@@ -38,20 +38,18 @@ export default function CreatePlan() {
 
     }
 
-    const handleChangeExercism = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, property: keyof Omit<Exercism, 'id'>, index: number) => {
+    const handleChangeExercism = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, property: keyof Omit<Exercism, 'id'>) => {
         e.preventDefault();
 
+        console.log(property)
         setExercism((prevState) => {
             const updatedValue = e.target.value;
 
-            return prevState.map((item, i) =>
-                i === index
-                    ? {
-                        ...item,
-                        [property]: typeof item[property] === 'number' ? +updatedValue : updatedValue,
-                    }
-                    : item
-            );
+
+            return {
+                ...prevState,
+                [property]: typeof prevState[property] == 'number' ? Number(updatedValue): updatedValue
+            }
         });
     }
 
@@ -73,93 +71,8 @@ export default function CreatePlan() {
         />
     </div>;
 
-
-    const makeSecondStep = (exer: Omit<Exercism, 'id'>) => {
-        return (<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exer.name + `${exercism.length}`}>
-            <div className={styles['create-training-delete']}>
-                <FaTrash />
-            </div>
-            <Select onChangeHandle={(e) => handleChangeExercism(e, 'weekDayPlanId', (exercism.length - 1))} weekDayList={[{
-                id: 'domingo',
-                name: 'Domingo'
-            }, {
-                id: 'segunda',
-                name: 'Segunda-Feira'
-            }, {
-                id: 'terça',
-                name: 'Terça-Feira'
-            }, {
-                id: 'quarta',
-                name: 'Quarta-Feira'
-            }, {
-                id: 'Quinta',
-                name: 'Terça-Feira'
-            }, {
-                id: 'Sexta',
-                name: 'Sexta-Feira'
-            }, {
-                id: 'sabado',
-                name: 'Sábado'
-            }]} />
-            <Input
-                id="name"
-                name="name"
-                placeholder="Nome"
-                type="text"
-                onChangeHandle={(e) => handleChangeExercism(e, 'name', (exercism.length - 1))}
-                required
-            />
-            <Input
-                id="description"
-                name="description"
-                placeholder="Breve descrição"
-                type="text"
-                onChangeHandle={(e) => handleChangeExercism(e, 'description', (exercism.length - 1))}
-                required
-            />
-            <Input
-                id="sequence"
-                name="sequence"
-                placeholder="Sequência do exercício no plano"
-                type="number"
-                onChangeHandle={(e) => handleChangeExercism(e, 'sequence', (exercism.length - 1))}
-                required
-            />
-            <Input
-                id="serie"
-                name="serie"
-                placeholder="Número de séries para o exercício"
-                type="number"
-                onChangeHandle={(e) => handleChangeExercism(e, 'serie', (exercism.length - 1))}
-                required
-            />
-            <Input
-                id="repetition"
-                name="repetition"
-                placeholder="Número de repetições"
-                type="number"
-                onChangeHandle={(e) => handleChangeExercism(e, 'repetition', (exercism.length - 1))}
-            />
-            <Input
-                id="time"
-                name="time"
-                placeholder="Tempo do exercício"
-                type="number"
-                onChangeHandle={(e) => handleChangeExercism(e, 'time', (exercism.length - 1))}
-            />
-            <Input
-                id="timeOff"
-                name="timeOff"
-                placeholder="Tempo de descanso"
-                type="number"
-                onChangeHandle={(e) => handleChangeExercism(e, 'timeOff', (exercism.length - 1))}
-                required
-            />
-        </div>);
-    }
-
-    const secondStep = [<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exercism[0].name + '0'}>
-        <Select onChangeHandle={(e) => handleChangeExercism(e, 'weekDayPlanId', 0)} key={exercism[0].name + '0' + 'select'} weekDayList={[{
+    const secondStep = [<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exercism.name + '0'}>
+        <Select onChangeHandle={(e) => handleChangeExercism(e, 'weekDayPlanId')} key={exercism.name + '0' + 'select'} weekDayList={[{
             id: 'segunda',
             name: 'Segunda-Feira'
         }, {
@@ -180,7 +93,7 @@ export default function CreatePlan() {
             name="name"
             placeholder="Nome"
             type="text"
-            onChangeHandle={(e) => handleChangeExercism(e, 'name', 0)}
+            onChangeHandle={(e) => handleChangeExercism(e, 'name')}
             required
         />
         <Input
@@ -188,7 +101,7 @@ export default function CreatePlan() {
             name="description"
             placeholder="Breve descrição"
             type="text"
-            onChangeHandle={(e) => handleChangeExercism(e, 'description', 0)}
+            onChangeHandle={(e) => handleChangeExercism(e, 'description')}
             required
         />
         <Input
@@ -196,7 +109,7 @@ export default function CreatePlan() {
             name="sequence"
             placeholder="Sequência do exercício no plano"
             type="number"
-            onChangeHandle={(e) => handleChangeExercism(e, 'sequence', 0)}
+            onChangeHandle={(e) => handleChangeExercism(e, 'sequence')}
             required
         />
         <Input
@@ -204,7 +117,7 @@ export default function CreatePlan() {
             name="serie"
             placeholder="Número de séries para o exercício"
             type="number"
-            onChangeHandle={(e) => handleChangeExercism(e, 'serie', 0)}
+            onChangeHandle={(e) => handleChangeExercism(e, 'serie')}
             required
         />
         <Input
@@ -212,21 +125,21 @@ export default function CreatePlan() {
             name="repetition"
             placeholder="Número de repetições"
             type="number"
-            onChangeHandle={(e) => handleChangeExercism(e, 'repetition', 0)}
+            onChangeHandle={(e) => handleChangeExercism(e, 'repetition')}
         />
         <Input
             id="time"
             name="time"
             placeholder="Tempo do exercício"
             type="number"
-            onChangeHandle={(e) => handleChangeExercism(e, 'time', 0)}
+            onChangeHandle={(e) => handleChangeExercism(e, 'time')}
         />
         <Input
             id="timeOff"
             name="timeOff"
             placeholder="Tempo de descanso"
             type="number"
-            onChangeHandle={(e) => handleChangeExercism(e, 'timeOff', 0)}
+            onChangeHandle={(e) => handleChangeExercism(e, 'timeOff')}
             required
         />
     </div>];
@@ -267,7 +180,9 @@ export default function CreatePlan() {
     }
 
     const handlePrevStep = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        console.log(exercism);
 
         console.log(step);
         if (step === 0) {
@@ -287,37 +202,9 @@ export default function CreatePlan() {
         handleComponent();
     }
 
-
-    const handleAddMoreExercism = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        setExercism((prevState) => [...prevState, {
-            description: '',
-            name: '',
-            sequence: -1,
-            serie: -1,
-            timeOff: -1,
-            weekDayPlanId: '',
-            repetition: -1,
-            time: -1,
-        }]);
-
-
-        const component = makeSecondStep(exercism[exercism.length - 1]);
-
-        setActualComponent((prevState) => [...prevState, component]);
-    };
-
-    const handleRemoveLastExercism = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
-
-        if (exercism.length > 1 && actualComponent.length > 1) {
-            setActualComponent((prevState) => prevState.slice(0, -1));
-
-            setExercism((prevState) => prevState.slice(0, -1));
-        }
-
-    };
+    }
 
     return (
         <>
@@ -331,7 +218,7 @@ export default function CreatePlan() {
             <section className={styles['create-training-section']}>
                 <Form component={
                     <>
-                        <h3>Criar Plano de exercício</h3>
+                        <h3>{step === 0 ? 'Criar Plano de exercício' : 'Adicionar exercício ao plano'}</h3>
                         <div className={styles['create-training-sequence']}>
                             <div
                                 className={step === 0 ? styles['selected'] : ''}
@@ -356,22 +243,6 @@ export default function CreatePlan() {
                         />}
                         {step === 1 && (
                             <>
-                                <Button
-                                    classType='success'
-                                    id='login-form-submit'
-                                    text='Adicionar mais exercício'
-                                    type='button'
-                                    onClick={(e) => handleAddMoreExercism(e)}
-                                />
-
-                                <Button
-                                    classType='normal'
-                                    id='login-form-submit'
-                                    text='Remover último formulário de exercício'
-                                    type='button'
-                                    onClick={(e) => handleRemoveLastExercism(e)}
-                                />
-
                                 <Button
                                     classType='success'
                                     id='login-form-submit'

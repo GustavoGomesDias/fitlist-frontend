@@ -66,6 +66,12 @@
     height: 50px;
 }
 
+.create-training-delete button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
 .create-training-delete svg {
     fill: var(--text-color);
     font-size: 1.6rem;
