@@ -1,0 +1,47 @@
+.toast-container {
+    width: 400px;
+    height: 120px;
+    border-radius: var(--btn-radius);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.success {
+    background-color: var(--success-color);
+}
+
+.error {
+    background-color: var(--error-color);
+}
+
+.toast-container p {
+    text-align: justify;
+    width: 90%;
+    text-wrap: wrap;
+    padding: 1rem;
+}
+
+.toast-container span {
+    /* width: 100%; */
+    padding: .3rem;
+    background-color: var(--normal-color);
+
+    animation: timeCount ease 3s;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes timeCount {
+    0% {
+        margin-left: 0; /* Começa da esquerda */
+    }
+
+    100% {
+        margin-left: 100%; /* Termina na direita */
+    }
+}

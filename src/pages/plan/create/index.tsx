@@ -1,13 +1,13 @@
 import { useState, MouseEvent, useEffect, ChangeEvent, FormEvent } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { FaTrash } from 'react-icons/fa';
-import { Button, Form, Header, Input, Select } from '@/components/UI';
+import { Button, Form, Header, Input, Select, Tosat } from '@/components/UI';
 import styles from '@/styles/Plan.module.css'
 import { SEO } from '@/components';
 import { Exercism } from '@/data/models/Exercism';
 import { TrainingPlam } from '@/data/models/TrainingPlan';
-
+import { isRequired } from '@/validations';
+import { exercismTranslate, trainingFieldTranslate } from '@/helpers';
 export default function CreatePlan() {
     const [step, setStep] = useState<number>(0);
     const [actualComponent, setActualComponent] = useState<JSX.Element[]>([]);
@@ -169,7 +169,14 @@ export default function CreatePlan() {
     }
 
     const handleNextStep = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        const requiredFieldTrainingPlan = isRequired(trainingPlan, ['description', 'name']);
+
+        if (requiredFieldTrainingPlan) {
+            console.log(`${trainingFieldTranslate[requiredFieldTrainingPlan as keyof typeof trainingFieldTranslate]} é necessário.`);
+            return;
+        }
 
         if (step === 1) {
             return;
@@ -194,16 +201,18 @@ export default function CreatePlan() {
         handleComponent();
     }
 
-
-    const handleClickStepButton = (e: MouseEvent<HTMLDivElement>, stepNumber: number) => {
-        e.preventDefault();
-
-        setStep(stepNumber);
-        handleComponent();
-    }
-
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
+
+        const requiredFieldExercism = isRequired(exercism, ['description', 'name', 'sequence', 'serie', 'timeOff', 'weekDayPlanId']);
+
+        if (requiredFieldExercism) {
+            `${exercismTranslate[requiredFieldExercism as keyof typeof exercismTranslate]} é necessário`;
+            return;
+        }
+
+
+        // Chamada para API
     }
 
     return (
@@ -214,7 +223,7 @@ export default function CreatePlan() {
                     <Image src="/images/back.svg" alt="Voltar para Home" width="25" height="25" key="/images/settings.svg" title='Voltar para Home' onClick={() => back()} />
                 ]}
             />
-
+            <Tosat />
             <section className={styles['create-training-section']}>
                 <Form component={
                     <>
@@ -222,13 +231,13 @@ export default function CreatePlan() {
                         <div className={styles['create-training-sequence']}>
                             <div
                                 className={step === 0 ? styles['selected'] : ''}
-                                onClick={(e) => handleClickStepButton(e, 0)}
+                                // onClick={(e) => handleClickStepButton(e, 0)}
                             >
                                 1
                             </div>
                             <div
                                 className={step === 1 ? styles['selected'] : ''}
-                                onClick={(e) => handleClickStepButton(e, 1)}
+                                // onClick={(e) => handleClickStepButton(e, 1)}
                             >
                                 2
                             </div>
