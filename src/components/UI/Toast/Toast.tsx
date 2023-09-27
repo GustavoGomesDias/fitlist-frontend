@@ -1,9 +1,16 @@
 import style from './Toast.module.css';
 
-export const Tosat = (): JSX.Element => {
+
+export interface ToastProps {
+    message: string
+    type: 'error' | 'success'
+    isVisible: boolean
+}
+
+export const Toast = ({ isVisible, message, type }: ToastProps): JSX.Element => {
     return (
-        <div className={`${style['toast-container']} ${style['success']}`}>
-            <p>Texxtando Texxtando Texxtando Texxtando Texxtando Texxtando</p>
+        <div className={`${style['toast-container']} ${style[type]} ${isVisible ? style['show'] : ''}`}>
+            <p>{message}</p>
             <span />
         </div>
     );

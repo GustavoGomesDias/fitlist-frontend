@@ -1,13 +1,15 @@
 import { useState, MouseEvent, useEffect, ChangeEvent, FormEvent } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Button, Form, Header, Input, Select, Tosat } from '@/components/UI';
+import { Button, Form, Header, Input, Select, Toast } from '@/components/UI';
 import styles from '@/styles/Plan.module.css'
 import { SEO } from '@/components';
 import { Exercism } from '@/data/models/Exercism';
 import { TrainingPlam } from '@/data/models/TrainingPlan';
 import { isRequired } from '@/validations';
 import { exercismTranslate, trainingFieldTranslate } from '@/helpers';
+import { useToast } from '@/hooks';
+import { WeekDayPlan } from '@/data/models/WeekDayPlan';
 export default function CreatePlan() {
     const [step, setStep] = useState<number>(0);
     const [actualComponent, setActualComponent] = useState<JSX.Element[]>([]);
@@ -24,6 +26,18 @@ export default function CreatePlan() {
         weekDayPlanId: '',
         repetition: -1,
         time: -1,
+    });
+    const [weekDayList, setWeekDayList] = useState<{
+        day: string
+        id: string
+    }[]>([])
+
+    const weekDays = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
+
+    const { changeConfigToast, showToast, toast } = useToast({
+        isVisible: false,
+        message: 'Toast',
+        type: 'success'
     });
 
     const handleChangeTraining = (e: ChangeEvent<HTMLInputElement>, property: keyof Omit<TrainingPlam, 'id'>) => {
@@ -74,19 +88,19 @@ export default function CreatePlan() {
     const secondStep = [<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exercism.name + '0'}>
         <Select onChangeHandle={(e) => handleChangeExercism(e, 'weekDayPlanId')} key={exercism.name + '0' + 'select'} weekDayList={[{
             id: 'segunda',
-            name: 'Segunda-Feira'
+            day: 'Segunda-Feira'
         }, {
             id: 'terça',
-            name: 'Terça-Feira'
+            day: 'Terça-Feira'
         }, {
             id: 'quarta',
-            name: 'Quarta-Feira'
+            day: 'Quarta-Feira'
         }, {
             id: 'Quinta',
-            name: 'Terça-Feira'
+            day: 'Terça-Feira'
         }, {
             id: 'Sexta',
-            name: 'Sexta-Feira'
+            day: 'Sexta-Feira'
         }]} />
         <Input
             id="name"
@@ -174,13 +188,42 @@ export default function CreatePlan() {
         const requiredFieldTrainingPlan = isRequired(trainingPlan, ['description', 'name']);
 
         if (requiredFieldTrainingPlan) {
-            console.log(`${trainingFieldTranslate[requiredFieldTrainingPlan as keyof typeof trainingFieldTranslate]} é necessário.`);
+            changeConfigToast({
+                message: `${trainingFieldTranslate[requiredFieldTrainingPlan as keyof typeof trainingFieldTranslate]} é necessário.`,
+                type: 'error',
+            });
+            showToast()
             return;
         }
 
         if (step === 1) {
             return;
         }
+        const mockedWeekDayPlans = [{
+            id: 'uuid1',
+            day: 0,
+        }, {
+            id: 'uuid2',
+            day: 1,
+        }, {
+            id: 'uuid3',
+            day: 2,
+        }, {
+            id: 'uuid4',
+            day: 3,
+        }, {
+            id: 'uuid5',
+            day: 4,
+        }, {
+            id: 'uuid6',
+            day: 5,
+        }, {
+            id: 'uuid7',
+            day: 6,
+        }];
+
+        const result = mockedWeekDayPlans.map((dayPlan) => ({ day: weekDays[dayPlan.day], id: dayPlan.id }));
+        setWeekDayList(result)
         setStep((prevState) => prevState + 1);
 
         handleComponent();
@@ -204,10 +247,27 @@ export default function CreatePlan() {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
+        window.scrollTo({top: 0, behavior: 'smooth'});
+
         const requiredFieldExercism = isRequired(exercism, ['description', 'name', 'sequence', 'serie', 'timeOff', 'weekDayPlanId']);
 
         if (requiredFieldExercism) {
-            `${exercismTranslate[requiredFieldExercism as keyof typeof exercismTranslate]} é necessário`;
+            changeConfigToast({
+                message: `${exercismTranslate[requiredFieldExercism as keyof typeof exercismTranslate]} é necessário.`,
+                type: 'error',
+            });
+            showToast();
+            
+            return;
+        }
+
+        if (exercism.repetition !== -1 && exercism.time !== -1) {
+            changeConfigToast({
+                message: 'O exercício deve ter repetições ou tempo de execução, nunca os dois.',
+                type: 'error',
+            });
+            showToast();
+            
             return;
         }
 
@@ -223,7 +283,8 @@ export default function CreatePlan() {
                     <Image src="/images/back.svg" alt="Voltar para Home" width="25" height="25" key="/images/settings.svg" title='Voltar para Home' onClick={() => back()} />
                 ]}
             />
-            <Tosat />
+
+            {toast()}
             <section className={styles['create-training-section']}>
                 <Form component={
                     <>
@@ -269,7 +330,7 @@ export default function CreatePlan() {
                             </>
                         )}
                     </>
-                } />
+                }handleSubmit={handleSubmit}  />
             </section>
         </>
     );
