@@ -1,7 +1,7 @@
 import { useState, MouseEvent, useEffect, ChangeEvent, FormEvent } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Button, Form, Header, Input, Select, Toast } from '@/components/UI';
+import { Button, Form, Header, Input, Select } from '@/components/UI';
 import styles from '@/styles/Plan.module.css'
 import { SEO } from '@/components';
 import { Exercism } from '@/data/models/Exercism';
@@ -9,7 +9,7 @@ import { TrainingPlam } from '@/data/models/TrainingPlan';
 import { isRequired } from '@/validations';
 import { exercismTranslate, trainingFieldTranslate } from '@/helpers';
 import { useToast } from '@/hooks';
-import { WeekDayPlan } from '@/data/models/WeekDayPlan';
+
 export default function CreatePlan() {
     const [step, setStep] = useState<number>(0);
     const [actualComponent, setActualComponent] = useState<JSX.Element[]>([]);
@@ -44,7 +44,6 @@ export default function CreatePlan() {
         e.preventDefault();
 
         setTrainingPlan((prevState) => {
-            console.log(prevState);
             prevState[property] = e.target.value
 
             return prevState;
@@ -54,8 +53,6 @@ export default function CreatePlan() {
 
     const handleChangeExercism = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, property: keyof Omit<Exercism, 'id'>) => {
         e.preventDefault();
-
-        console.log(property)
         setExercism((prevState) => {
             const updatedValue = e.target.value;
 
@@ -85,23 +82,14 @@ export default function CreatePlan() {
         />
     </div>;
 
-    const secondStep = [<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exercism.name + '0'}>
-        <Select onChangeHandle={(e) => handleChangeExercism(e, 'weekDayPlanId')} key={exercism.name + '0' + 'select'} weekDayList={[{
-            id: 'segunda',
-            day: 'Segunda-Feira'
-        }, {
-            id: 'terça',
-            day: 'Terça-Feira'
-        }, {
-            id: 'quarta',
-            day: 'Quarta-Feira'
-        }, {
-            id: 'Quinta',
-            day: 'Terça-Feira'
-        }, {
-            id: 'Sexta',
-            day: 'Sexta-Feira'
-        }]} />
+    const secondStep = (weekDays: {
+        id: string
+        day: string
+    }[]) => [<div className={`${styles['create-training-input-section']} ${styles['create-training-input-section-bb']}`} key={exercism.name + '0'}>
+        <Select onChangeHandle={(e) => handleChangeExercism(e, 'weekDayPlanId')} key={exercism.name + '0' + 'select'} weekDayList={weekDays.map((weekday) => ({
+            id: weekday.id,
+            day: weekday.day
+        }))} />
         <Input
             id="name"
             name="name"
@@ -160,20 +148,20 @@ export default function CreatePlan() {
 
     useEffect(() => {
         if (step === 1) {
-            setActualComponent(secondStep);
+            setActualComponent(secondStep(weekDayList));
         }
 
 
         if (step === 0) {
             setActualComponent([firstStep]);
         }
-    }, []);
+    }, [weekDayList]);
 
     const { back } = useRouter();
 
     const handleComponent = () => {
         if (step === 0) {
-            setActualComponent(secondStep);
+            setActualComponent(secondStep(weekDayList));
         }
 
 
@@ -232,9 +220,6 @@ export default function CreatePlan() {
     const handlePrevStep = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        console.log(exercism);
-
-        console.log(step);
         if (step === 0) {
             return;
         }
