@@ -25,3 +25,10 @@ export const exercismTranslate = {
     repetition: 'Repetições',
     time: 'Tempo',
 }
+
+export const createUserTranslate = {
+    name: 'Nome',
+    email: 'E-mail',
+    password: 'Senha',
+    confirmSenha: 'Confirmar Senha'
+}
