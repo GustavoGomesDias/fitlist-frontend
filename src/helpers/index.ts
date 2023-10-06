@@ -30,5 +30,5 @@ export const createUserTranslate = {
     name: 'Nome',
     email: 'E-mail',
     password: 'Senha',
-    confirmSenha: 'Confirmar Senha'
+    confirmPassword: 'Confirmar Senha'
 }

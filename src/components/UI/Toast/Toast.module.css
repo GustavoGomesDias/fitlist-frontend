@@ -27,8 +27,7 @@
 }
 
 .toast-container p {
-    text-align: justify;
-    width: 90%;
+    width: 100%;
     text-wrap: wrap;
     padding: 1rem;
 }
