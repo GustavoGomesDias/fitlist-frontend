@@ -1,5 +1,6 @@
-import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios'
+import { useRouter } from 'next/router';
 import styles from '@/styles/Home.module.css'
 import { Input, Button, LinkButton, Form } from '@/components/UI';
 import { Logo } from '@/components';
@@ -33,6 +34,8 @@ export default function Login() {
         message: 'Toast',
         type: 'success'
     });
+
+    const { push } = useRouter();
 
     const { signIn, user} = useAuth();
 
@@ -144,8 +147,7 @@ export default function Login() {
         }
 
         await signIn(loginUser);
-
-        console.log(user);
+        push('/settings/id', '/settings/id');
     }
 
     return (

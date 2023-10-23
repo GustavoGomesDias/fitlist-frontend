@@ -1,14 +1,19 @@
-import { useMemo, useState } from 'react';
-import ProviderProps from '../ProviderProps';
+import { useEffect, useMemo, useState } from 'react';
+import ProviderProps from '../types/ProviderProps';
 import { User } from '@/data/models/User';
 import api from '@/services/api';
 import { useCookies, useToast } from '@/hooks';
 import { AxiosError, AxiosResponse } from 'axios';
 import AuthContext, { AuthContextType } from './AuthContext';
+import { UserInfo } from '@/context/types';
 
 const AuthProvider = ({ children }: ProviderProps) => {
-    const [user, setUser] = useState<(Omit<User, 'password'> & {[id: string]: string}) | null>(null);
-    const isAuthenticated = !!user;
+    const [user, setUser] = useState<UserInfo>({
+        id: '',
+        email: '',
+        name: ''
+    });
+    const isAuthenticated = user.id !== '';
 
     const { saveCookie, deleteCookies, getCookie } = useCookies();
 
@@ -37,9 +42,11 @@ const AuthProvider = ({ children }: ProviderProps) => {
     
                 return;
             }
-            saveCookie('token', responseJSON.body.content.token);
 
-            setUser(responseJSON.body.content.userInfo);
+            const userInfo = responseJSON.body.content.userInfo;
+
+            saveCookie('user', JSON.stringify(userInfo));
+            saveCookie('token', responseJSON.body.content.token);
         } catch(e) {
             if (!((e as unknown as AxiosError).response as AxiosResponse)) {
                 changeConfigToast({
@@ -60,13 +67,14 @@ const AuthProvider = ({ children }: ProviderProps) => {
 
     const signOut = () => {
         deleteCookies('token');
+        deleteCookies('user');
     }
 
     const context: AuthContextType = useMemo(() => ({
         isAuthenticated,
         signIn,
         signOut,
-        user
+        user: user
     }), [isAuthenticated, signIn, signOut, user]);
 
     return (
