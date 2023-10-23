@@ -26,7 +26,7 @@ export const exercismTranslate = {
     time: 'Tempo',
 }
 
-export const createUserTranslate = {
+export const userTranslate = {
     name: 'Nome',
     email: 'E-mail',
     password: 'Senha',
