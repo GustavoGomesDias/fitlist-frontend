@@ -51,7 +51,7 @@ const AuthProvider = ({ children }: ProviderProps) => {
             saveCookie('token', responseJSON.body.content.token);
 
             push({
-                pathname: '/settings/[id]',
+                pathname: '/home/[id]',
                 query: { id: userInfo.id }
             });
         } catch(e) {

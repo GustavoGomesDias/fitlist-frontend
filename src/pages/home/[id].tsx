@@ -3,6 +3,8 @@ import { SEO } from '@/components/SEO/SEO';
 import Image from 'next/image';
 import { TrainingSection } from '@/components/TrainingSection/TrainingSection';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 
 export default function Home() {
     const { push } = useRouter();
@@ -21,3 +23,20 @@ export default function Home() {
         </>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+
+    const { token } = parseCookies(ctx);
+    if (!token) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: {},
+    };
+};

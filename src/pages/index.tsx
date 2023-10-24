@@ -11,6 +11,9 @@ import { isEmail, isRequired } from '@/validations';
 import { useAuth, useToast } from '@/hooks';
 import { userTranslate } from '@/helpers';
 import api, { Response } from '@/services/api';
+import { parseCookies } from 'nookies';
+import { GetServerSideProps } from 'next';
+import { UserInfo } from '@/context/types';
 
 type CreateUser = User & {
     confirmPassword: string
@@ -35,7 +38,7 @@ export default function Login() {
         type: 'success'
     });
 
-    const { signIn, user} = useAuth();
+    const { signIn, user } = useAuth();
 
     const handleChangeInputCreateUser = (e: ChangeEvent<HTMLInputElement>, property: keyof CreateUser) => {
         e.preventDefault();
@@ -203,3 +206,22 @@ export default function Login() {
 
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+
+    const { token, user } = parseCookies(ctx);
+    if (token) {
+
+        const { id } = JSON.parse(user) as unknown as UserInfo
+        return {
+            redirect: {
+                destination: `/home/${id}`,
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: {},
+    };
+};
