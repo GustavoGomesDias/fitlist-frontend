@@ -6,6 +6,8 @@ import { LateralMenu } from '@/components/LateralMenu/LateralMenu';
 import styles from '@/styles/Settings.module.css';
 import { TrainingPanel, AccountPanel } from '@/components';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 
 export default function Settings() {
     const [settingType, setSettingType] = useState<'training' | 'account'>('training');
@@ -37,3 +39,20 @@ export default function Settings() {
         </>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+
+    const { token } = parseCookies(ctx);
+    if (!token) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
+  
+    return {
+      props: {},
+    };
+  };

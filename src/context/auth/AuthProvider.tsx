@@ -6,6 +6,7 @@ import { useCookies, useToast } from '@/hooks';
 import { AxiosError, AxiosResponse } from 'axios';
 import AuthContext, { AuthContextType } from './AuthContext';
 import { UserInfo } from '@/context/types';
+import { useRouter } from 'next/router';
 
 const AuthProvider = ({ children }: ProviderProps) => {
     const [user, setUser] = useState<UserInfo>({
@@ -13,7 +14,8 @@ const AuthProvider = ({ children }: ProviderProps) => {
         email: '',
         name: ''
     });
-    const isAuthenticated = user.id !== '';
+
+    const { push } = useRouter();
 
     const { saveCookie, deleteCookies, getCookie } = useCookies();
 
@@ -47,6 +49,11 @@ const AuthProvider = ({ children }: ProviderProps) => {
 
             saveCookie('user', JSON.stringify(userInfo));
             saveCookie('token', responseJSON.body.content.token);
+
+            push({
+                pathname: '/settings/[id]',
+                query: { id: userInfo.id }
+            });
         } catch(e) {
             if (!((e as unknown as AxiosError).response as AxiosResponse)) {
                 changeConfigToast({
@@ -71,11 +78,10 @@ const AuthProvider = ({ children }: ProviderProps) => {
     }
 
     const context: AuthContextType = useMemo(() => ({
-        isAuthenticated,
         signIn,
         signOut,
         user: user
-    }), [isAuthenticated, signIn, signOut, user]);
+    }), [signIn, signOut, user]);
 
     return (
         <AuthContext.Provider value={context}>

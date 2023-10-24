@@ -3,8 +3,10 @@ import { SettingSection } from '../Settings/SettingSection';
 import { Button, Input } from '../UI';
 import style from './AccountPanel.module.css';
 import Image from 'next/image';
-import { useAuth, useCookies } from '@/hooks';
+import { useCookies, useToast } from '@/hooks';
 import { UserInfo } from '@/context/types';
+import api from '@/services/api';
+import { AxiosError, AxiosResponse } from 'axios';
 
 export interface AccountPanelProps { }
 
@@ -14,7 +16,12 @@ export const AccountPanel = (): JSX.Element => {
     const [email, setEmail] = useState<string>('');
     const [readOnly, setReadOnly] = useState<boolean>(true)
 
-    const { getCookie } = useCookies();
+    const { getCookie, saveCookie } = useCookies();
+    const { changeConfigToast, showToast, toast } = useToast({
+        isVisible: false,
+        message: 'Toast',
+        type: 'success'
+    });
     const userJson = getCookie('user');
 
     const user = JSON.parse(userJson) as unknown as UserInfo;
@@ -45,17 +52,68 @@ export const AccountPanel = (): JSX.Element => {
         else setEmail(e.target.value);
     }
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        console.log(name);
-        console.log(email);
+        try {
+
+            const token = getCookie('token');
+            const response = await api.put('/user', {
+                id: user.id,
+                name,
+                email,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+    
+            const responseJSON = response.data;
+    
+            if (response.status !== 200) {
+                changeConfigToast({
+                    message: responseJSON.body.error,
+                    type: 'error',
+                });
+                showToast();
+            }
+
+            changeConfigToast({
+                message: responseJSON.body.message,
+                type: 'success',
+            });
+
+            showToast();
+            setReadOnly(true);
+
+            saveCookie('user', JSON.stringify({
+                id: user.id,
+                name,
+                email,
+            }))
+            return;
+        } catch(e) {
+            if (!((e as unknown as AxiosError).response as AxiosResponse)) {
+                changeConfigToast({
+                    message: 'Erro interno, tente novamente mais tarde.',
+                    type: 'error',
+                });
+            } else {
+                changeConfigToast({
+                    message: ((e as unknown as AxiosError).response as AxiosResponse).data.body.error,
+                    type: 'error',
+                });
+            }
+            showToast();
+        }
     }
 
     return (
         <SettingSection
             component={
                 <>
+
+                    {toast()}
                     <div className={style['fl-settings-account-mode']}>
                         <Image src="/images/edit.svg" alt='Edit icon' width={25} height={25} onClick={(e) => handleEdit(e)} />
                         <Image src="/images/eye.svg" alt='Only Show Info icon' width={25} height={25} onClick={(e) => handleOnlyShowInfo(e)} />

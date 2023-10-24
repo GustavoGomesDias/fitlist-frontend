@@ -35,8 +35,6 @@ export default function Login() {
         type: 'success'
     });
 
-    const { push } = useRouter();
-
     const { signIn, user} = useAuth();
 
     const handleChangeInputCreateUser = (e: ChangeEvent<HTMLInputElement>, property: keyof CreateUser) => {
@@ -147,7 +145,6 @@ export default function Login() {
         }
 
         await signIn(loginUser);
-        push('/settings/id', '/settings/id');
     }
 
     return (
