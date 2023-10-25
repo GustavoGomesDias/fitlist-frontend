@@ -8,14 +8,17 @@ import { Exercism } from '@/data/models/Exercism';
 import { TrainingPlam } from '@/data/models/TrainingPlan';
 import { isRequired } from '@/validations';
 import { exercismTranslate, trainingFieldTranslate } from '@/helpers';
-import { useToast } from '@/hooks';
+import { useCookies, useToast } from '@/hooks';
+import api from '@/services/api';
+import { UserInfo } from '@/context/types';
 
 export default function CreatePlan() {
     const [step, setStep] = useState<number>(0);
     const [actualComponent, setActualComponent] = useState<JSX.Element[]>([]);
-    const [trainingPlan, setTrainingPlan] = useState<Omit<TrainingPlam, 'id'>>({
+    const [trainingPlan, setTrainingPlan] = useState<Omit<TrainingPlam, 'id'> & { rest: number }>({
         description: '',
         name: '',
+        rest: -1,
     });
     const [exercism, setExercism] = useState<Omit<Exercism, 'id'>>({
         description: '',
@@ -39,6 +42,8 @@ export default function CreatePlan() {
         message: 'Toast',
         type: 'success'
     });
+
+    const { getCookie } = useCookies();
 
     const handleChangeTraining = (e: ChangeEvent<HTMLInputElement>, property: keyof Omit<TrainingPlam, 'id'>) => {
         e.preventDefault();
@@ -80,6 +85,38 @@ export default function CreatePlan() {
             onChangeHandle={(e) => handleChangeTraining(e, 'description')}
             required
         />
+        <Select onChangeHandle={(e) => setTrainingPlan((prevState) => ({
+            ...prevState,
+            rest: Number(e.target.value),
+        }))} key='' weekDayList={[{
+            id: 'first-sunday',
+            dayNumber: 0,
+            day: 'Domingo',
+        }, {
+            id: 'first-monday',
+            dayNumber: 1,
+            day: 'Segunda-Feira'
+        }, {
+            id: 'first-tuesday',
+            dayNumber: 2,
+            day: 'Terça-Feira'
+        }, {
+            id: 'first-wednesday',
+            dayNumber: 3,
+            day: 'Quarta-Feira'
+        }, {
+            id: 'first-thursday',
+            dayNumber: 4,
+            day: 'Quinta-Feira'
+        }, {
+            id: 'first-friday',
+            dayNumber: 5,
+            day: 'Sexta-Feira'
+        }, {
+            id: 'first-saturday',
+            dayNumber: 6,
+            day: 'Sábado'
+        }]} />
     </div>;
 
     const secondStep = (weekDays: {
@@ -170,7 +207,7 @@ export default function CreatePlan() {
         }
     }
 
-    const handleNextStep = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleNextStep = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         const requiredFieldTrainingPlan = isRequired(trainingPlan, ['description', 'name']);
@@ -183,7 +220,7 @@ export default function CreatePlan() {
             showToast()
             return;
         }
-
+ 
         if (step === 1) {
             return;
         }
@@ -211,6 +248,33 @@ export default function CreatePlan() {
         }];
 
         const result = mockedWeekDayPlans.map((dayPlan) => ({ day: weekDays[dayPlan.day], id: dayPlan.id }));
+
+        const token = getCookie('token');
+
+        const user = JSON.parse(getCookie('user')) as UserInfo;
+
+        const respomseTrainingPlan = await api.post('/trainingPlan', {
+            name: trainingPlan.name,
+            description: trainingPlan.description,
+            userId: user.id,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (respomseTrainingPlan.status === 201) {
+            const { trainingPlanId } = respomseTrainingPlan.data.body.content;
+            await api.post('/weekdayplan', {
+                rest: trainingPlan.rest,
+                trainingPlanId,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+        }
+
         setWeekDayList(result)
         setStep((prevState) => prevState + 1);
 

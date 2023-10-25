@@ -5,6 +5,7 @@ export interface WeekdaySelectProps {
     weekDayList: {
         id: string
         day: string
+        dayNumber?: number
     }[]
     onChangeHandle: (e: ChangeEvent<HTMLSelectElement>) => void
 }
@@ -13,7 +14,7 @@ export const Select = ({ weekDayList, onChangeHandle }: WeekdaySelectProps): JSX
     return (
         <select className={style['select']} onChange={onChangeHandle} defaultValue={'DEFAULT'}>
             <option value="DEFAULT" disabled>Escolha o dia da semana...</option>
-            {weekDayList.map((wd, index) => <option value={wd.id} key={wd.id}>{wd.day}</option>)}
+            {weekDayList.map((wd, index) => <option value={wd.dayNumber !== null ? wd.dayNumber : wd.id} key={wd.id}>{wd.day}</option>)}
         </select>
     );
 }
