@@ -11,6 +11,7 @@ import { exercismTranslate, trainingFieldTranslate } from '@/helpers';
 import { useCookies, useToast } from '@/hooks';
 import api from '@/services/api';
 import { UserInfo } from '@/context/types';
+import { WeekDayPlan } from '@/data/models/WeekDayPlan';
 
 export default function CreatePlan() {
     const [step, setStep] = useState<number>(0);
@@ -23,12 +24,12 @@ export default function CreatePlan() {
     const [exercism, setExercism] = useState<Omit<Exercism, 'id'>>({
         description: '',
         name: '',
-        sequence: -1,
-        serie: -1,
+        sequence: 0,
+        serie: 0,
         timeOff: -1,
         weekDayPlanId: '',
-        repetition: -1,
-        time: -1,
+        repetition: 0,
+        time: 0,
     });
     const [weekDayList, setWeekDayList] = useState<{
         day: string
@@ -61,7 +62,7 @@ export default function CreatePlan() {
         setExercism((prevState) => {
             const updatedValue = e.target.value;
 
-
+            console.log(e.target.value);
             return {
                 ...prevState,
                 [property]: typeof prevState[property] == 'number' ? Number(updatedValue): updatedValue
@@ -224,36 +225,12 @@ export default function CreatePlan() {
         if (step === 1) {
             return;
         }
-        const mockedWeekDayPlans = [{
-            id: 'uuid1',
-            day: 0,
-        }, {
-            id: 'uuid2',
-            day: 1,
-        }, {
-            id: 'uuid3',
-            day: 2,
-        }, {
-            id: 'uuid4',
-            day: 3,
-        }, {
-            id: 'uuid5',
-            day: 4,
-        }, {
-            id: 'uuid6',
-            day: 5,
-        }, {
-            id: 'uuid7',
-            day: 6,
-        }];
-
-        const result = mockedWeekDayPlans.map((dayPlan) => ({ day: weekDays[dayPlan.day], id: dayPlan.id }));
 
         const token = getCookie('token');
 
         const user = JSON.parse(getCookie('user')) as UserInfo;
 
-        const respomseTrainingPlan = await api.post('/trainingPlan', {
+        const responseTrainingPlan = await api.post('/trainingPlan', {
             name: trainingPlan.name,
             description: trainingPlan.description,
             userId: user.id,
@@ -263,8 +240,8 @@ export default function CreatePlan() {
             }
         });
 
-        if (respomseTrainingPlan.status === 201) {
-            const { trainingPlanId } = respomseTrainingPlan.data.body.content;
+        if (responseTrainingPlan.status === 201) {
+            const { trainingPlanId } = responseTrainingPlan.data.body.content;
             await api.post('/weekdayplan', {
                 rest: trainingPlan.rest,
                 trainingPlanId,
@@ -273,12 +250,25 @@ export default function CreatePlan() {
                     'Authorization': `Bearer ${token}`
                 }
             });
+
+
+            const responseWeekDays = await api.get(`/trainingPlan/${trainingPlanId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (responseWeekDays.status === 200) {
+                const { weekDayPlan } = responseWeekDays.data.body.content as { weekDayPlan: WeekDayPlan[] };
+                setWeekDayList(weekDayPlan.map((wd) => ({
+                    id: wd.id,
+                    day: weekDays[wd.day],
+                })));
+                setStep((prevState) => prevState + 1);
+    
+                handleComponent();
+            }
         }
-
-        setWeekDayList(result)
-        setStep((prevState) => prevState + 1);
-
-        handleComponent();
     }
 
     const handlePrevStep = (e: MouseEvent<HTMLButtonElement>) => {
@@ -293,7 +283,7 @@ export default function CreatePlan() {
         handleComponent();
     }
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -310,7 +300,7 @@ export default function CreatePlan() {
             return;
         }
 
-        if (exercism.repetition !== -1 && exercism.time !== -1) {
+        if (exercism.repetition !== 0 && exercism.time !== 0) {
             changeConfigToast({
                 message: 'O exercício deve ter repetições ou tempo de execução, nunca os dois.',
                 type: 'error',
@@ -320,8 +310,16 @@ export default function CreatePlan() {
             return;
         }
 
-
-        // Chamada para API
+        const token = getCookie('token');
+        const user = JSON.parse(getCookie('user')) as UserInfo;
+        await api.post(`/exercism`, {
+            ...exercism,
+            userId: user.id,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
     }
 
     return (
