@@ -84,3 +84,21 @@
 .fl-setting-training-list-title img {
     position: relative;
 }
+
+.training-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+.training-actions img {
+    cursor: pointer;
+    transition: .5s all;
+}
+
+.training-actions img:hover {
+    transform: scale(1.05);
+}

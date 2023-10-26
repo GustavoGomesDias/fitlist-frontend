@@ -145,19 +145,26 @@ export const TrainingPanel = ({ draggable }: TrainigPanelProps): JSX.Element => 
     return (
 
         <SettingSection
-            component={renderTrainingList ?
-                <div className={styles['fl-setting-training-list']}>
-                    <h4 className={styles['fl-setting-training-list-weekday']}>{weekDayPlanInfo}</h4>
-                    <TrainigList exercismList={exercismList} draggable={draggable} />
-
-                    <div className={styles['fl-setting-training-list-title']} onClick={(e) => handleShowWeekDayCard(e)}>
-                        <Image src="/images/back.svg" alt="Voltar para Home" width="20" height="20" key="/images/settings.svg" title='Voltar para Home' /> <span>Voltar</span>
+            component={
+                <>
+                    <div className={styles['training-actions']}>
+                        <Image src="/images/edit.svg" alt='Edit icon' width={25} height={25} />
+                        <Image src="/images/trash.svg" alt='Trash icon' width={25} height={25} />
                     </div>
-                </div>
-                :
-                (<div className={styles['fl-setting-weekdays']}>
-                    {trainingsMock.map((item, index) => <WeekDayCard weekDayPlanId={String(index)} handleClickFn={handleRenderTrainingList} key={`${item.weekday}-${index}`} weekday={item['weekday']} training={item['training']} />)}
-                </div>)
+                    {renderTrainingList ?
+                        <div className={styles['fl-setting-training-list']}>
+                            <h4 className={styles['fl-setting-training-list-weekday']}>{weekDayPlanInfo}</h4>
+                            <TrainigList exercismList={exercismList} draggable={draggable} />
+
+                            <div className={styles['fl-setting-training-list-title']} onClick={(e) => handleShowWeekDayCard(e)}>
+                                <Image src="/images/back.svg" alt="Voltar para Home" width="20" height="20" key="/images/settings.svg" title='Voltar para Home' /> <span>Voltar</span>
+                            </div>
+                        </div>
+                        :
+                        (<div className={styles['fl-setting-weekdays']}>
+                            {trainingsMock.map((item, index) => <WeekDayCard weekDayPlanId={String(index)} handleClickFn={handleRenderTrainingList} key={`${item.weekday}-${index}`} weekday={item['weekday']} training={item['training']} />)}
+                        </div>)}
+                </>
             }
             dropdownProps={{
                 hasDropdown: true,
