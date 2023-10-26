@@ -7,7 +7,7 @@ export interface InputProps {
     onChangeHandle: (e: ChangeEvent<HTMLInputElement>) => void
     type?: HTMLInputTypeAttribute
     name: string
-    value?: string
+    value?: string | number
     readonly?: boolean
     width?: string
     required?: boolean

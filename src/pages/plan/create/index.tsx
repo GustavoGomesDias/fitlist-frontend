@@ -60,7 +60,7 @@ export default function CreatePlan() {
     }
 
     const handleChangeExercism = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, property: keyof Omit<Exercism, 'id'>) => {
-        e.preventDefault();
+        // e.preventDefault();
         setExercism((prevState) => {
             const updatedValue = e.target.value;
 
@@ -136,6 +136,7 @@ export default function CreatePlan() {
             placeholder="Nome"
             type="text"
             onChangeHandle={(e) => handleChangeExercism(e, 'name')}
+            // value={exercism.name}
             required
         />
         <Input
@@ -144,6 +145,7 @@ export default function CreatePlan() {
             placeholder="Breve descrição"
             type="text"
             onChangeHandle={(e) => handleChangeExercism(e, 'description')}
+            // value={exercism.description}
             required
         />
         <Input
@@ -152,6 +154,7 @@ export default function CreatePlan() {
             placeholder="Sequência do exercício no plano"
             type="number"
             onChangeHandle={(e) => handleChangeExercism(e, 'sequence')}
+            // value={exercism.sequence}
             required
         />
         <Input
@@ -160,6 +163,7 @@ export default function CreatePlan() {
             placeholder="Número de séries para o exercício"
             type="number"
             onChangeHandle={(e) => handleChangeExercism(e, 'serie')}
+            // value={exercism.serie}
             required
         />
         <Input
@@ -168,6 +172,7 @@ export default function CreatePlan() {
             placeholder="Número de repetições"
             type="number"
             onChangeHandle={(e) => handleChangeExercism(e, 'repetition')}
+            // value={exercism.repetition}
         />
         <Input
             id="time"
@@ -175,6 +180,7 @@ export default function CreatePlan() {
             placeholder="Tempo do exercício"
             type="number"
             onChangeHandle={(e) => handleChangeExercism(e, 'time')}
+            // value={exercism.time}
         />
         <Input
             id="timeOff"
@@ -182,6 +188,7 @@ export default function CreatePlan() {
             placeholder="Tempo de descanso"
             type="number"
             onChangeHandle={(e) => handleChangeExercism(e, 'timeOff')}
+            // value={exercism.timeOff}
             required
         />
     </div>];
@@ -343,12 +350,28 @@ export default function CreatePlan() {
                 type: 'success',
             });
             showToast();
+
+            const inputs = document.querySelectorAll("input");
+
+            const inpArrays = Array.from(inputs);
+
+            inpArrays.forEach((inp) => (inp.value = ''))
             
+            setExercism({
+                description: '',
+                name: '',
+                sequence: 0,
+                serie: 0,
+                timeOff: 0,
+                weekDayPlanId: '',
+                repetition: 0,
+                time: 0,
+            })
             return;
         } else {
             changeConfigToast({
                 message: response.data.body.error,
-                type: 'success',
+                type: 'error',
             });
             showToast();
             
