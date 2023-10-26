@@ -19,7 +19,7 @@ export const SettingSection = ({ title, component, dropdownProps }: SettingSecti
     return (
         <section className={styles['fl-setting-section']}>
             <div>
-                <h3 className={styles['fl-settings-header']} onClick={dropdownProps.hasDropdown ? (e) => (dropdownProps.handleShowDropdown as (e: MouseEvent, title?: string) => void)(e) : () => {}}>{title}</h3>
+                <h3 title={dropdownProps.hasDropdown ? `${title} - Clique para mudar de plano de treino` : title} className={`${styles['fl-settings-header']} ${dropdownProps.hasDropdown ? styles['fl-settings-header-h']: ''}`} onClick={dropdownProps.hasDropdown ? (e) => (dropdownProps.handleShowDropdown as (e: MouseEvent, title?: string) => void)(e) : () => {}}>{title}</h3>
 
                 <ul className={`${styles['fl-settings-dropdown']} ${dropdownProps.showDropdown ? styles['fl-settings-dropdown-show'] : ''}`}>
                     {dropdownProps.dropdownList && dropdownProps.dropdownList.map((item, index) => <li className={styles['fl-settings-dropdown-item']} onClick={dropdownProps.hasDropdown ? ((e) => (dropdownProps.handleShowDropdown as (e: MouseEvent, title?: string) => void)(e, item)) : () => {}} key={`${item}-${index}`}>{item}</li>)}

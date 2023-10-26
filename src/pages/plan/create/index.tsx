@@ -88,7 +88,7 @@ export default function CreatePlan() {
             onChangeHandle={(e) => handleChangeTraining(e, 'description')}
             required
         />
-        <Select onChangeHandle={(e) => setTrainingPlan((prevState) => ({
+        {/* <Select onChangeHandle={(e) => setTrainingPlan((prevState) => ({
             ...prevState,
             rest: Number(e.target.value),
         }))} key='' weekDayList={[{
@@ -119,7 +119,7 @@ export default function CreatePlan() {
             id: 'first-saturday',
             dayNumber: 6,
             day: 'Sábado'
-        }]} />
+        }]} /> */}
     </div>;
 
     const secondStep = (weekDays: {
@@ -252,7 +252,7 @@ export default function CreatePlan() {
         if (responseTrainingPlan.status === 201) {
             const { trainingPlanId } = responseTrainingPlan.data.body.content;
             await api.post('/weekdayplan', {
-                rest: trainingPlan.rest,
+                rest: -1,
                 trainingPlanId,
             }, {
                 headers: {

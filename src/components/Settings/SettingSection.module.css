@@ -9,6 +9,19 @@
     font-weight: 700;
     cursor: pointer;
     height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.fl-settings-header-h {
+    transition: .5s all ease-in;
+}
+
+.fl-settings-header-h:hover {
+    background-color: var(--normal-color);
+    padding: .5rem;
+    border-radius: 15px;
 }
 
 .fl-settings-dropdown {
