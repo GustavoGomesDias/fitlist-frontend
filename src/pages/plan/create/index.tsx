@@ -12,6 +12,8 @@ import { useCookies, useToast } from '@/hooks';
 import api from '@/services/api';
 import { UserInfo } from '@/context/types';
 import { WeekDayPlan } from '@/data/models/WeekDayPlan';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 
 export default function CreatePlan() {
     const [step, setStep] = useState<number>(0);
@@ -267,7 +269,21 @@ export default function CreatePlan() {
                 setStep((prevState) => prevState + 1);
     
                 handleComponent();
+            } else {
+                changeConfigToast({
+                    message: 'Erro interno, tente novamente mais tarde!',
+                    type: 'error',
+                });
+                showToast()
+                return;
             }
+        } else {
+            changeConfigToast({
+                message: responseTrainingPlan.data.body.error,
+                type: 'error',
+            });
+            showToast()
+            return;
         }
     }
 
@@ -312,7 +328,7 @@ export default function CreatePlan() {
 
         const token = getCookie('token');
         const user = JSON.parse(getCookie('user')) as UserInfo;
-        await api.post(`/exercism`, {
+        const response = await api.post(`/exercism`, {
             ...exercism,
             userId: user.id,
         }, {
@@ -320,6 +336,24 @@ export default function CreatePlan() {
                 'Authorization': `Bearer ${token}`
             }
         });
+
+        if (response.status === 201) {
+            changeConfigToast({
+                message: response.data.body.message,
+                type: 'success',
+            });
+            showToast();
+            
+            return;
+        } else {
+            changeConfigToast({
+                message: response.data.body.error,
+                type: 'success',
+            });
+            showToast();
+            
+            return;
+        }
     }
 
     return (
@@ -382,3 +416,20 @@ export default function CreatePlan() {
         </>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+
+    const { token } = parseCookies(ctx);
+    if (!token) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: {},
+    };
+};
