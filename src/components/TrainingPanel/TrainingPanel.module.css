@@ -102,3 +102,21 @@
 .training-actions img:hover {
     transform: scale(1.05);
 }
+
+.fl-settings-redirect {
+    height: 50px;
+    border-radius: var(--btn-border-radius);
+    outline: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 900;
+    background-color: var(--success-color);
+    padding: 1rem;
+    cursor: pointer;
+    transition: .5s all;
+}
+
+.fl-settings-redirect:hover {
+    transform: scale(1.1);
+}

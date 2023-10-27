@@ -8,8 +8,14 @@ import { TrainingPanel, AccountPanel } from '@/components';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
+import api from '@/services/api';
+import { TrainingPlan } from '@/data/models/TrainingPlan';
 
-export default function Settings() {
+export interface SettingsProps {
+    trainingPlans: TrainingPlan[]
+}
+
+export default function Settings({ trainingPlans }: SettingsProps) {
     const [settingType, setSettingType] = useState<'training' | 'account'>('training');
 
     const { back } = useRouter();
@@ -34,25 +40,53 @@ export default function Settings() {
                     setTypeFn: setSettingType,
                 }]} />
 
-                {settingType === 'training' ? <TrainingPanel draggable={true} /> : <AccountPanel />}
+                {settingType === 'training' ? <TrainingPanel draggable={true} trainingPlans={trainingPlans} /> : <AccountPanel />}
             </section>
         </>
     );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    try {
+        const { token, user } = parseCookies(ctx);
+        const { id } = ctx.params as { id: string };
 
-    const { token } = parseCookies(ctx);
-    if (!token) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      };
+        const response = await api.get(`/trainingPlan/all/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        console.log(response.status);
+
+        if (response.status !== 200) {
+            return {
+                props: {
+                    trainingPlans: [],
+                },
+            };
+        }
+
+        if (!token) {
+            return {
+                redirect: {
+                    destination: '/',
+                    permanent: false,
+                },
+            };
+        }
+
+        return {
+            props: {
+                trainingPlans: response.data.body.content,
+            },
+        };
+    } catch(e) {
+        return {
+            props: {
+                trainingPlans: [],
+            }
+        }
     }
-  
-    return {
-      props: {},
-    };
-  };
+    
+};

@@ -17,6 +17,10 @@
     cursor: pointer;
 }
 
+.rest {
+    background-color: var(--success-color);
+}
+
 .card:hover {
     transform: scale(1.1);
 }

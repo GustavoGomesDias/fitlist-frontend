@@ -67,7 +67,7 @@ export default function CreatePlan() {
             console.log(e.target.value);
             return {
                 ...prevState,
-                [property]: typeof prevState[property] == 'number' ? Number(updatedValue): updatedValue
+                [property]: typeof prevState[property] == 'number' ? Number(updatedValue) : updatedValue
             }
         });
     }
@@ -88,38 +88,6 @@ export default function CreatePlan() {
             onChangeHandle={(e) => handleChangeTraining(e, 'description')}
             required
         />
-        {/* <Select onChangeHandle={(e) => setTrainingPlan((prevState) => ({
-            ...prevState,
-            rest: Number(e.target.value),
-        }))} key='' weekDayList={[{
-            id: 'first-sunday',
-            dayNumber: 0,
-            day: 'Domingo',
-        }, {
-            id: 'first-monday',
-            dayNumber: 1,
-            day: 'Segunda-Feira'
-        }, {
-            id: 'first-tuesday',
-            dayNumber: 2,
-            day: 'Terça-Feira'
-        }, {
-            id: 'first-wednesday',
-            dayNumber: 3,
-            day: 'Quarta-Feira'
-        }, {
-            id: 'first-thursday',
-            dayNumber: 4,
-            day: 'Quinta-Feira'
-        }, {
-            id: 'first-friday',
-            dayNumber: 5,
-            day: 'Sexta-Feira'
-        }, {
-            id: 'first-saturday',
-            dayNumber: 6,
-            day: 'Sábado'
-        }]} /> */}
     </div>;
 
     const secondStep = (weekDays: {
@@ -130,6 +98,11 @@ export default function CreatePlan() {
             id: weekday.id,
             day: weekday.day
         }))} />
+
+        <Select onChangeHandle={(e) => handleChangeExercism(e, 'weekDayPlanId')} key="exercism-list" defaultValue="Escolha um exercício..." exercismList={[{
+            id: 'teste1',
+            name: 'nome-exercicio'
+        }]} />
         <Input
             id="name"
             name="name"
@@ -172,7 +145,7 @@ export default function CreatePlan() {
             placeholder="Número de repetições"
             type="number"
             onChangeHandle={(e) => handleChangeExercism(e, 'repetition')}
-            // value={exercism.repetition}
+        // value={exercism.repetition}
         />
         <Input
             id="time"
@@ -180,7 +153,7 @@ export default function CreatePlan() {
             placeholder="Tempo do exercício"
             type="number"
             onChangeHandle={(e) => handleChangeExercism(e, 'time')}
-            // value={exercism.time}
+        // value={exercism.time}
         />
         <Input
             id="timeOff"
@@ -230,68 +203,73 @@ export default function CreatePlan() {
             showToast()
             return;
         }
- 
+
         if (step === 1) {
             return;
         }
 
-        const token = getCookie('token');
+        // const token = getCookie('token');
 
-        const user = JSON.parse(getCookie('user')) as UserInfo;
+        // const user = JSON.parse(getCookie('user')) as UserInfo;
 
-        const responseTrainingPlan = await api.post('/trainingPlan', {
-            name: trainingPlan.name,
-            description: trainingPlan.description,
-            userId: user.id,
-        }, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+        // const responseTrainingPlan = await api.post('/trainingPlan', {
+        //     name: trainingPlan.name,
+        //     description: trainingPlan.description,
+        //     userId: user.id,
+        // }, {
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`
+        //     }
+        // });
 
-        if (responseTrainingPlan.status === 201) {
-            const { trainingPlanId } = responseTrainingPlan.data.body.content;
-            await api.post('/weekdayplan', {
-                rest: -1,
-                trainingPlanId,
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+        // if (responseTrainingPlan.status === 201) {
+        //     const { trainingPlanId } = responseTrainingPlan.data.body.content;
+        //     await api.post('/weekdayplan', {
+        //         rest: -1,
+        //         trainingPlanId,
+        //     }, {
+        //         headers: {
+        //             'Authorization': `Bearer ${token}`
+        //         }
+        //     });
 
 
-            const responseWeekDays = await api.get(`/trainingPlan/${trainingPlanId}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+        //     const responseWeekDays = await api.get(`/trainingPlan/${trainingPlanId}`, {
+        //         headers: {
+        //             'Authorization': `Bearer ${token}`
+        //         }
+        //     });
 
-            if (responseWeekDays.status === 200) {
-                const { weekDayPlan } = responseWeekDays.data.body.content as { weekDayPlan: WeekDayPlan[] };
-                setWeekDayList(weekDayPlan.map((wd) => ({
-                    id: wd.id,
-                    day: weekDays[wd.day],
-                })));
-                setStep((prevState) => prevState + 1);
-    
-                handleComponent();
-            } else {
-                changeConfigToast({
-                    message: 'Erro interno, tente novamente mais tarde!',
-                    type: 'error',
-                });
-                showToast()
-                return;
-            }
-        } else {
-            changeConfigToast({
-                message: responseTrainingPlan.data.body.error,
-                type: 'error',
-            });
-            showToast()
-            return;
-        }
+        //     if (responseWeekDays.status === 200) {
+        //         const { weekDayPlan } = responseWeekDays.data.body.content as { weekDayPlan: WeekDayPlan[] };
+        //         setWeekDayList(weekDayPlan.map((wd) => ({
+        //             id: wd.id,
+        //             day: weekDays[wd.day],
+        //         })));
+        //         setStep((prevState) => prevState + 1);
+
+        //         handleComponent();
+        //     } else {
+        //         changeConfigToast({
+        //             message: 'Erro interno, tente novamente mais tarde!',
+        //             type: 'error',
+        //         });
+        //         showToast()
+        //         return;
+        //     }
+        // } else {
+        //     changeConfigToast({
+        //         message: responseTrainingPlan.data.body.error,
+        //         type: 'error',
+        //     });
+        //     showToast()
+        //     return;
+        // }
+
+
+        setStep((prevState) => prevState + 1);
+
+        handleComponent();
     }
 
     const handlePrevStep = (e: MouseEvent<HTMLButtonElement>) => {
@@ -309,7 +287,7 @@ export default function CreatePlan() {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
         const requiredFieldExercism = isRequired(exercism, ['description', 'name', 'sequence', 'serie', 'timeOff', 'weekDayPlanId']);
 
@@ -319,7 +297,7 @@ export default function CreatePlan() {
                 type: 'error',
             });
             showToast();
-            
+
             return;
         }
 
@@ -329,54 +307,54 @@ export default function CreatePlan() {
                 type: 'error',
             });
             showToast();
-            
+
             return;
         }
 
-        const token = getCookie('token');
-        const user = JSON.parse(getCookie('user')) as UserInfo;
-        const response = await api.post(`/exercism`, {
-            ...exercism,
-            userId: user.id,
-        }, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+        // const token = getCookie('token');
+        // const user = JSON.parse(getCookie('user')) as UserInfo;
+        // const response = await api.post(`/exercism`, {
+        //     ...exercism,
+        //     userId: user.id,
+        // }, {
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`
+        //     }
+        // });
 
-        if (response.status === 201) {
-            changeConfigToast({
-                message: response.data.body.message,
-                type: 'success',
-            });
-            showToast();
+        // if (response.status === 201) {
+        //     changeConfigToast({
+        //         message: response.data.body.message,
+        //         type: 'success',
+        //     });
+        //     showToast();
 
-            const inputs = document.querySelectorAll("input");
+        //     const inputs = document.querySelectorAll("input");
 
-            const inpArrays = Array.from(inputs);
+        //     const inpArrays = Array.from(inputs);
 
-            inpArrays.forEach((inp) => (inp.value = ''))
-            
-            setExercism({
-                description: '',
-                name: '',
-                sequence: 0,
-                serie: 0,
-                timeOff: 0,
-                weekDayPlanId: '',
-                repetition: 0,
-                time: 0,
-            })
-            return;
-        } else {
-            changeConfigToast({
-                message: response.data.body.error,
-                type: 'error',
-            });
-            showToast();
-            
-            return;
-        }
+        //     inpArrays.forEach((inp) => (inp.value = ''))
+
+        //     setExercism({
+        //         description: '',
+        //         name: '',
+        //         sequence: 0,
+        //         serie: 0,
+        //         timeOff: 0,
+        //         weekDayPlanId: '',
+        //         repetition: 0,
+        //         time: 0,
+        //     })
+        //     return;
+        // } else {
+        //     changeConfigToast({
+        //         message: response.data.body.error,
+        //         type: 'error',
+        //     });
+        //     showToast();
+
+        //     return;
+        // }
     }
 
     return (
@@ -396,13 +374,13 @@ export default function CreatePlan() {
                         <div className={styles['create-training-sequence']}>
                             <div
                                 className={step === 0 ? styles['selected'] : ''}
-                                // onClick={(e) => handleClickStepButton(e, 0)}
+                            // onClick={(e) => handleClickStepButton(e, 0)}
                             >
                                 1
                             </div>
                             <div
                                 className={step === 1 ? styles['selected'] : ''}
-                                // onClick={(e) => handleClickStepButton(e, 1)}
+                            // onClick={(e) => handleClickStepButton(e, 1)}
                             >
                                 2
                             </div>
@@ -434,7 +412,7 @@ export default function CreatePlan() {
                             </>
                         )}
                     </>
-                }handleSubmit={handleSubmit}  />
+                } handleSubmit={handleSubmit} />
             </section>
         </>
     );

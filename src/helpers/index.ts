@@ -32,3 +32,5 @@ export const userTranslate = {
     password: 'Senha',
     confirmPassword: 'Confirmar Senha'
 }
+
+export const weekDaysTranslate = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];

@@ -1,12 +1,13 @@
 import { MouseEvent } from 'react';
 import styles from './SettingSection.module.css';
+import { TrainingPlan } from '@/data/models/TrainingPlan';
 
 
 export interface SettingsDropdownTitleProps {
     hasDropdown: boolean
-    dropdownList?: string[]
+    dropdownList?: TrainingPlan[]
     showDropdown?: boolean
-    handleShowDropdown?:  (e: MouseEvent, title?: string) => void
+    handleShowDropdown?:  (e: MouseEvent, trainingPlanId: string, title?: string) => void
 }
 
 export interface SettingSectionProps {
@@ -19,10 +20,16 @@ export const SettingSection = ({ title, component, dropdownProps }: SettingSecti
     return (
         <section className={styles['fl-setting-section']}>
             <div>
-                <h3 title={dropdownProps.hasDropdown ? `${title} - Clique para mudar de plano de treino` : title} className={`${styles['fl-settings-header']} ${dropdownProps.hasDropdown ? styles['fl-settings-header-h']: ''}`} onClick={dropdownProps.hasDropdown ? (e) => (dropdownProps.handleShowDropdown as (e: MouseEvent, title?: string) => void)(e) : () => {}}>{title}</h3>
+                <h3
+                    title={dropdownProps.hasDropdown ? `${title} - Clique para mudar de plano de treino` : title}
+                    className={`${styles['fl-settings-header']} ${dropdownProps.hasDropdown ? styles['fl-settings-header-h']: ''}`}
+                    onClick={dropdownProps.hasDropdown ? (e) => (dropdownProps.handleShowDropdown as (e: MouseEvent, title?: string) => void)(e) : () => {}}
+                >
+                    {title}
+                </h3>
 
                 <ul className={`${styles['fl-settings-dropdown']} ${dropdownProps.showDropdown ? styles['fl-settings-dropdown-show'] : ''}`}>
-                    {dropdownProps.dropdownList && dropdownProps.dropdownList.map((item, index) => <li className={styles['fl-settings-dropdown-item']} onClick={dropdownProps.hasDropdown ? ((e) => (dropdownProps.handleShowDropdown as (e: MouseEvent, title?: string) => void)(e, item)) : () => {}} key={`${item}-${index}`}>{item}</li>)}
+                    {dropdownProps.dropdownList && dropdownProps.dropdownList.map((item, index) => <li className={styles['fl-settings-dropdown-item']} onClick={dropdownProps.hasDropdown ? ((e) => (dropdownProps.handleShowDropdown as (e: MouseEvent, trainingPlanId: string, title?: string) => void)(e, item.id, item.name)) : () => {}} key={`${item}-${index}`}>{item.name}</li>)}
                 </ul>
             </div>
             {component}
