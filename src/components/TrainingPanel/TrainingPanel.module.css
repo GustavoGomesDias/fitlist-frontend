@@ -81,9 +81,9 @@
     text-align: center;
 }
 
-.fl-setting-training-list-title img {
+/* .fl-setting-training-list-title img {
     position: relative;
-}
+} */
 
 .training-actions {
     display: flex;

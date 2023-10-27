@@ -6,3 +6,4 @@ export * from '@/components/UI/Header/Header';
 export * from '@/components/UI/Form/Form';
 export * from '@/components/UI/Select/Select';
 export * from '@/components/UI/Toast/Toast';
+export * from '@/components/UI/LateralModal/LateralModal';

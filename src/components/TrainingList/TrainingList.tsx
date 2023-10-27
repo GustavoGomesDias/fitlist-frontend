@@ -3,6 +3,7 @@ import { Exercism } from '@/data/models/Exercism';
 import styles from './TrainingList.module.css';
 import { makeid } from '@/helpers';
 import Image from 'next/image';
+import { useLateralModal } from '@/hooks';
 
 export interface TrainigListProps {
     exercismList: Exercism[]
@@ -11,6 +12,17 @@ export interface TrainigListProps {
 
 export const TrainigList = ({ exercismList, draggable }: TrainigListProps): JSX.Element => {
     const [items, setItems] = useState<Exercism[]>(exercismList);
+
+    const { changeConfigModal, closeModal, lateralModal, showModal } = useLateralModal();
+
+    const handleOpenEditModal = (exercism: Exercism) => {
+        changeConfigModal({
+            component: <span>{exercism.id}</span>,
+            title: exercism.name,
+        })
+
+        showModal();
+    }
 
     const handleDragStart = (e: DragEvent, index: number, id: string) => {
         e.dataTransfer.setData('index', String(index));
@@ -48,30 +60,33 @@ export const TrainigList = ({ exercismList, draggable }: TrainigListProps): JSX.
     }
 
     return (
-        <section className={`${styles['fd-training-section']}`}>
+        <>
+            {lateralModal()}
+            <section className={`${styles['fd-training-section']}`}>
 
-            <div className={`${styles['exercism-day-list']}`}>
+                <div className={`${styles['exercism-day-list']}`}>
 
-                <div className={`${styles['exercism-plan']}`}>
-                    <div className={`${styles['exercism']}`}>
-                        {items.map((exercism, index) =>
-                            <span
-                                id={exercism.name}
-                                draggable={draggable}
-                                onDragStart={draggable ? (e => handleDragStart(e, index, exercism.name)) : (e) => { }}
-                                onDragOver={draggable ? (e) => handleDragOver(e) : (e) => { }}
-                                onDrop={draggable ? (e) => handleDropItem(e, index) : (e) => { }}
-                                key={makeid(9)}
-                                className={`${styles['fd-exer']}`}>
-                                {exercism.name} / {exercism.time ? `${exercism.time}s` : exercism.repetition}x{exercism.serie} - {exercism.timeOff}s off
-                                <div className={styles['training-actions']}>
-                                    {<Image src="/images/edit.svg" alt='Edit icon' width={25} height={25} />}
-                                    {<Image src="/images/trash.svg" alt='Trash icon' width={25} height={25} />}
-                                </div>
-                            </span>)}
+                    <div className={`${styles['exercism-plan']}`}>
+                        <div className={`${styles['exercism']}`}>
+                            {items.map((exercism, index) =>
+                                <span
+                                    id={exercism.name}
+                                    draggable={draggable}
+                                    onDragStart={draggable ? (e => handleDragStart(e, index, exercism.name)) : (e) => { }}
+                                    onDragOver={draggable ? (e) => handleDragOver(e) : (e) => { }}
+                                    onDrop={draggable ? (e) => handleDropItem(e, index) : (e) => { }}
+                                    key={makeid(9)}
+                                    className={`${styles['fd-exer']}`}>
+                                    {exercism.name} / {exercism.time ? `${exercism.time}s` : exercism.repetition}x{exercism.serie} - {exercism.timeOff}s off
+                                    <div className={styles['training-actions']}>
+                                        {<Image src="/images/edit.svg" alt='Edit icon' width={25} height={25} onClick={() => handleOpenEditModal(exercism)}/>}
+                                        {<Image src="/images/trash.svg" alt='Trash icon' width={25} height={25} />}
+                                    </div>
+                                </span>)}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }

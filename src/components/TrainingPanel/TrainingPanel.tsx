@@ -8,7 +8,7 @@ import { TrainigList } from '../TrainingList/TrainingList';
 import { SettingSection } from '../Settings/SettingSection';
 import { TrainingPlan } from '@/data/models/TrainingPlan';
 import api from '@/services/api';
-import { useCookies, useToast } from '@/hooks';
+import { useCookies, useLateralModal, useToast } from '@/hooks';
 import { WeekDayPlan } from '@/data/models/WeekDayPlan';
 import { weekDaysTranslate } from '@/helpers';
 import { useRouter } from 'next/router';
@@ -36,7 +36,6 @@ export const TrainingPanel = ({ draggable, trainingPlans }: TrainigPanelProps): 
     })
 
     const { push } = useRouter();
-
 
     const handleWeekDaysPlan = useCallback(async (trainingPlanId: string) => {
         const token = getCookie('token');
@@ -118,7 +117,7 @@ export const TrainingPanel = ({ draggable, trainingPlans }: TrainigPanelProps): 
 
         <SettingSection
             component={
-                <>
+                <> 
                     {toast()}
                     <div className={styles['training-actions']}>
                         {trainingPlans.length > 0 && <Image src="/images/edit.svg" alt='Edit icon' width={25} height={25} />}
