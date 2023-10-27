@@ -38,12 +38,32 @@
     border-bottom: 1px solid var(--text-color);
     display: flex;
     justify-content: center;
+    align-items: center;
     cursor: grab;
+
+    gap: 1rem;
 }
 
 .fd-exer-selected {
     background-color: var(--normal-color);
     border-radius: 5px;
+}
+
+.training-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    overflow-y: hidden;
+}
+
+.training-actions img {
+    cursor: pointer;
+    transition: .5s all;
+}
+
+.training-actions img:hover {
+    transform: scale(1.05);
 }
 
 @media (max-width: 767px) {

@@ -2,6 +2,7 @@ import { useState, DragEvent } from 'react';
 import { Exercism } from '@/data/models/Exercism';
 import styles from './TrainingList.module.css';
 import { makeid } from '@/helpers';
+import Image from 'next/image';
 
 export interface TrainigListProps {
     exercismList: Exercism[]
@@ -57,12 +58,16 @@ export const TrainigList = ({ exercismList, draggable }: TrainigListProps): JSX.
                             <span
                                 id={exercism.name}
                                 draggable={draggable}
-                                onDragStart={draggable ? (e => handleDragStart(e, index, exercism.name)) : (e) => {}}
-                                onDragOver={draggable ? (e) => handleDragOver(e): (e) => {}}
-                                onDrop={draggable ? (e) => handleDropItem(e, index): (e) => {}}
+                                onDragStart={draggable ? (e => handleDragStart(e, index, exercism.name)) : (e) => { }}
+                                onDragOver={draggable ? (e) => handleDragOver(e) : (e) => { }}
+                                onDrop={draggable ? (e) => handleDropItem(e, index) : (e) => { }}
                                 key={makeid(9)}
                                 className={`${styles['fd-exer']}`}>
-                                    {exercism.name} / {exercism.time ? `${exercism.time}s` : exercism.repetition}x{exercism.serie} - {exercism.timeOff}s off
+                                {exercism.name} / {exercism.time ? `${exercism.time}s` : exercism.repetition}x{exercism.serie} - {exercism.timeOff}s off
+                                <div className={styles['training-actions']}>
+                                    {<Image src="/images/edit.svg" alt='Edit icon' width={25} height={25} />}
+                                    {<Image src="/images/trash.svg" alt='Trash icon' width={25} height={25} />}
+                                </div>
                             </span>)}
                     </div>
                 </div>

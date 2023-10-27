@@ -40,7 +40,7 @@ export default function Settings({ trainingPlans }: SettingsProps) {
                     setTypeFn: setSettingType,
                 }]} />
 
-                {settingType === 'training' ? <TrainingPanel draggable={true} trainingPlans={trainingPlans} /> : <AccountPanel />}
+                {settingType === 'training' ? <TrainingPanel draggable={false} trainingPlans={trainingPlans} /> : <AccountPanel />}
             </section>
         </>
     );
